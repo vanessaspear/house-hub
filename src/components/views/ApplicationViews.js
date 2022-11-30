@@ -1,7 +1,8 @@
 import { Outlet, Route, Routes } from "react-router-dom"
-import { EditHome } from "../Home/EditHome"
 import { HomeForm } from "../Home/HomeForm"
 import { YourHome } from "../Home/YourHome"
+import { TaskContainer } from "../Tasks/TaskContainer"
+import { TaskForm } from "../Tasks/TaskForm"
 
 export const ApplicationViews = () => {
 	return (
@@ -16,6 +17,8 @@ export const ApplicationViews = () => {
             }>
                 <Route path="add-home" element={ <HomeForm /> } />
                 <Route path="your-home" element={ <YourHome /> } />
+                <Route path="tasks" element={ <TaskContainer /> } />
+                <Route path="task/create" element={ <TaskForm /> } />
             </Route>
         </Routes>
     )
