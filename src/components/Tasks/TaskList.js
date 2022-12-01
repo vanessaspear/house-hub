@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { Task } from "./Task"
 import "./Tasks.css"
 
 export const TaskList = ({ searchTerm }) => {
@@ -52,19 +53,11 @@ export const TaskList = ({ searchTerm }) => {
 
         <button onClick={() => navigate("/task/create")}>Create Task</button>
 
-
         <article className="tasks">
             {
-                filteredTasks.map(
-                    task => {
-                        return <section className="task" key={task.id}>
-                            <header>{task.title}</header>
-                            <div>Description: {task.description}</div>
-                            <div>Category: {task?.category?.category}</div>
-                            <div>Frequency: {task?.frequency?.frequency}</div>
-                        </section>
-                    }
-                )
+                filteredTasks.map(task => {
+                    return <Task task={ task }/>
+                })
             }
         </article>
     </>

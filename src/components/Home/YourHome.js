@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import { EditHome } from "./EditHome"
 
 export const YourHome = () => {
@@ -37,8 +36,6 @@ export const YourHome = () => {
         },
         [toggle]
     )
-
-    const navigate = useNavigate()
 
     return <><section className="home">
         {
