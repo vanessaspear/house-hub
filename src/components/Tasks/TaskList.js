@@ -7,6 +7,7 @@ export const TaskList = ({ searchTerm }) => {
     const [tasks, setTasks] = useState([])
     const [filteredTasks, setFilteredTasks] = useState([])
     const [homeownerTasks, updateHomeownersTasks] = useState([])
+    const [refresh, doRefresh] = useState(false)
 
     //Fetch the tickets array when the tasks state variable is initialized
     useEffect(
@@ -48,6 +49,18 @@ export const TaskList = ({ searchTerm }) => {
         [searchTerm]
     )
 
+    //Grab updated task list after deletion of a task
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/tasks?_expand=home&_expand=frequency&_expand=category`)
+                .then(res => res.json())
+                .then((tasksArray) => {
+                    setTasks(tasksArray)
+                })
+        },
+        [refresh]
+    )
+
     return <>
         <h2>Tasks List</h2>
 
@@ -56,7 +69,7 @@ export const TaskList = ({ searchTerm }) => {
         <article className="tasks">
             {
                 filteredTasks.map(task => {
-                    return <Task task={ task }/>
+                    return <Task task={ task } doRefresh={doRefresh} refresh={refresh}/>
                 })
             }
         </article>
