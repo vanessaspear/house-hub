@@ -5,6 +5,7 @@ import "./Tasks.css"
 export const TaskList = ({ searchTerm }) => {
     const [tasks, setTasks] = useState([])
     const [filteredTasks, setFilteredTasks] = useState([])
+    const [homeownerTasks, updateHomeownersTasks] = useState([])
 
     //Fetch the tickets array when the tasks state variable is initialized
     useEffect(
@@ -29,6 +30,7 @@ export const TaskList = ({ searchTerm }) => {
     useEffect(
         () => {
             const myTasks = tasks.filter(task => task?.home?.homeownerId === homeownerObj.id)
+            updateHomeownersTasks(myTasks)
             setFilteredTasks(myTasks)
         },
         [tasks]
@@ -37,13 +39,11 @@ export const TaskList = ({ searchTerm }) => {
     //Observe state of the search term 
     useEffect(
         () => {
-            const searchedTasks = tasks.filter(task => {
-                if(task.title.toLowerCase().contains(searchTerm.toLowerCase()) || task.description.toLowerCase().contains(searchTerm.toLowerCase())) {
-                    return true
-                }
-            })
-            setFilteredTasks(searchedTasks)
-        },
+            const searchedTasks = homeownerTasks.filter(task => {
+                return task.title.toLowerCase().includes(searchTerm.toLowerCase()) || task.description.toLowerCase().includes(searchTerm.toLowerCase())
+            }) 
+                setFilteredTasks(searchedTasks)
+            },
         [searchTerm]
     )
 
