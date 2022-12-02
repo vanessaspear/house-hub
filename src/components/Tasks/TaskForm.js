@@ -7,8 +7,8 @@ export const TaskForm = () => {
         title: "",
         description: "",
         homeId: 0,
-        categoryId: "",
-        frequencyId: ""
+        categoryId: 0,
+        frequencyId: 0
     })
     const [homes, setHomes] = useState([])
     const [categories, setCategories] = useState([])
@@ -130,14 +130,14 @@ export const TaskForm = () => {
                         className="form-control"
                         onChange={ (event) => {
                             const copy = {...task}
-                            copy.categoryId = event.target.value
+                            copy.categoryId = parseInt(event.target.value)
                             update(copy)
                         }}
                         >
                         <option value={0}>Choose a category</option>
                         {
                             categories.map(category => {
-                                return <option value={category.id} key={category.id}>{category.category}</option>
+                                return <option value={category.id} key={`category--${category.id}`}>{category.category}</option>
                             })
                         }
                     </select>
@@ -150,14 +150,14 @@ export const TaskForm = () => {
                         className="form-control"
                         onChange={ (event) => {
                             const copy = {...task}
-                            copy.frequencyId = event.target.value
+                            copy.frequencyId = parseInt(event.target.value)
                             update(copy)
                         }}
                         >
                         <option value={0}>Choose a frequency</option>
                         {
                             frequencies.map(frequency => {
-                                return <option value={frequency.id} key={frequency.id}>{frequency.frequency}</option>
+                                return <option value={frequency.id} key={`frequency--${frequency.id}`}>{frequency.frequency}</option>
                             })
                         }
                     </select>
