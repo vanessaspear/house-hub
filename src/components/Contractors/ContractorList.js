@@ -62,7 +62,7 @@ export const ContractorList = ({ searchTerm }) => {
     )
 
     return <>
-        <h2>Contractors</h2>
+        <h2>Your Contractors</h2>
 
         <button onClick={() => navigate("/contractor/create")}>Add Contractor</button>
 
