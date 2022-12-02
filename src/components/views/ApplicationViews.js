@@ -4,6 +4,9 @@ import { YourHome } from "../Home/YourHome"
 import { EditTask } from "../Tasks/EditTask"
 import { TaskContainer } from "../Tasks/TaskContainer"
 import { TaskForm } from "../Tasks/TaskForm"
+import { ContractorContainer } from "../Contractors/ContractorContainer"
+import { ContractorForm } from "../Contractors/ContractorForm"
+import { EditContractor } from "../Contractors/EditContractor"
 
 export const ApplicationViews = () => {
 	return (
@@ -21,6 +24,10 @@ export const ApplicationViews = () => {
                 <Route path="tasks" element={ <TaskContainer /> } />
                 <Route path="task/create" element={ <TaskForm /> } />
                 <Route path="/tasks/:taskId/edit" element={ <EditTask /> } />
+                <Route path="contractors" element={ <ContractorContainer /> } />
+                <Route path="contractor/create" element={ <ContractorForm /> } />
+                <Route path="/contractors/:contractorId/edit" element={ <EditContractor /> } />
+
             </Route>
         </Routes>
     )

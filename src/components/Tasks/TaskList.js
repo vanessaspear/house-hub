@@ -9,7 +9,7 @@ export const TaskList = ({ searchTerm }) => {
     const [homeownerTasks, updateHomeownersTasks] = useState([])
     const [refresh, doRefresh] = useState(false)
 
-    //Fetch the tickets array when the tasks state variable is initialized
+    //Fetch the tasks array when the tasks state variable is initialized
     useEffect(
         () => {
             fetch(`http://localhost:8088/tasks?_expand=home&_expand=frequency&_expand=category`)
