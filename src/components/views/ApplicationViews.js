@@ -7,6 +7,9 @@ import { TaskForm } from "../Tasks/TaskForm"
 import { ContractorContainer } from "../Contractors/ContractorContainer"
 import { ContractorForm } from "../Contractors/ContractorForm"
 import { EditContractor } from "../Contractors/EditContractor"
+import { WorkOrderContainer } from "../WorkOrders/WorkOrderContainer"
+import { WorkOrderForm } from "../WorkOrders/WorkOrderForm"
+import { EditWorkOrder } from "../WorkOrders/EditWorkOrder"
 
 export const ApplicationViews = () => {
 	return (
@@ -27,6 +30,9 @@ export const ApplicationViews = () => {
                 <Route path="contractors" element={ <ContractorContainer /> } />
                 <Route path="contractor/create" element={ <ContractorForm /> } />
                 <Route path="/contractors/:contractorId/edit" element={ <EditContractor /> } />
+                <Route path="workOrders" element={ <WorkOrderContainer /> } />
+                <Route path="workOrder/:taskId/create" element={ <WorkOrderForm /> } />
+                <Route path="/workOrders/:workOrderId/edit" element={ <EditWorkOrder /> } />
 
             </Route>
         </Routes>
