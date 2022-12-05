@@ -9,6 +9,9 @@ export const Task = ({ task, doRefresh, refresh }) => {
             <div>Category: {task?.category?.category}</div>
             <div>Frequency: {task?.frequency?.frequency}</div>
             <footer>
+            <div>
+                <Link to={`/workOrder/${task.id}/create`}>Create Work Order</Link>
+            </div>
             <button onClick={() => {
                 fetch(`http://localhost:8088/tasks/${task.id}`, {
                     method: "DELETE"

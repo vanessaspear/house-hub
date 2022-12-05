@@ -78,9 +78,8 @@ export const EditWorkOrder = () => {
     return (
         <form className="workOrderForm">
             <h2 className="workOrderForm__title">Edit Work Order</h2>
-            <div>The work order title and description are imported from the linked task</div>
-            <h2>Title: {workOrder?.task?.title}</h2>
-            <h2>Description: {workOrder?.task?.description}</h2>
+            <div>Title: {workOrder?.task?.title}</div>
+            <div>Description: {workOrder?.task?.description}</div>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="summary">Work Summary:</label>

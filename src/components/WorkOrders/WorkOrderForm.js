@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 
 export const WorkOrderForm = () => {
    
-    const taskId = useParams()
+    const {taskId} = useParams()
     const [task, setTask] = useState([])
     const [workOrder, update] = useState({
         id: 0,
@@ -13,7 +13,7 @@ export const WorkOrderForm = () => {
         startDate: "",
         completionDate: "",
         homeownerId: 0,
-        summary: ""
+        summary: "",
     })
     //Initialize contractors list 
     const [contractors, setContractors] = useState([])
@@ -21,12 +21,12 @@ export const WorkOrderForm = () => {
     //Get task object
     useEffect(
         () => {
-            fetch(`http://localhost:8088/tasks`)
+            fetch(`http://localhost:8088/tasks?id=${taskId}`)
                 .then(res => res.json())
                 .then((taskArray) => {
-                    const selectedTask = taskArray.find(task => taskId === task.id)
-                    const taskObj = selectedTask[0]
+                    const taskObj = taskArray[0]
                     setTask(taskObj)
+                    console.log(task)
                 })
         },
         [taskId]
@@ -42,7 +42,8 @@ export const WorkOrderForm = () => {
             fetch(`http://localhost:8088/contractors`)
                 .then(res => res.json())
                 .then((contractorsArray) => {
-                    setContractors(contractorsArray)
+                    const yourContractors = contractorsArray.filter(contractor => contractor.homeownerId === homeownerObj.id)
+                    setContractors(yourContractors)
                 })
         },
         []
@@ -82,12 +83,11 @@ export const WorkOrderForm = () => {
     }
 
     //JSX for create work order form
-    return (
+    return <>
         <form className="workOrderForm">
-            <h2 className="workOrderForm__title">Edit Work Order</h2>
-            <div>The work order title and description are imported from the linked task</div>
-            <h2>Title: {task.title}</h2>
-            <h2>Description: {task.description}</h2>
+            <h2 className="workOrderForm__title">Create a Work Order</h2>  
+            <div>Title: {task.title}</div>        
+            <div>Description: {task.description}</div>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="summary">Work Summary:</label>
@@ -160,5 +160,5 @@ export const WorkOrderForm = () => {
                 Save Work Order
             </button>
         </form>
-    )
+    </>
 }
