@@ -9,7 +9,9 @@ export const EditWorkOrder = () => {
         taskId: 0,
         contractorId: 0,
         startDate: "",
+        startTime: "",
         completionDate: "",
+        completionTime: "",
         homeownerId: 0,
         summary: ""
     })
@@ -53,7 +55,9 @@ export const EditWorkOrder = () => {
             taskId: workOrder.taskId,
             contractorId: workOrder.contractorId,
             startDate: workOrder.startDate,
+            startTime: new Date(workOrder.startDate).toLocaleTimeString('en-us'),
             completionDate: workOrder.completionDate,
+            completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
             homeownerId: workOrder.homeownerId,
             summary: workOrder.summary
         }
@@ -121,9 +125,9 @@ export const EditWorkOrder = () => {
                 <div className="form-group">
                     <label htmlFor="startDate">Start Date:</label>
                     <input
-                        type="text"
+                        type="datetime-local"
                         className="form-control"
-                        placeholder="Format: MM/DD/YYYY"
+                        placeholder="Scheduled work start date"
                         value={workOrder.startDate}
                         onChange={ (event) => {
                             const copy = {...workOrder}
@@ -136,9 +140,9 @@ export const EditWorkOrder = () => {
                 <div className="form-group">
                     <label htmlFor="completionDate">Completion Date:</label>
                     <input
-                        type="text"
+                        type="datetime-local"
                         className="form-control"
-                        placeholder="Format: MM/DD/YYYY"
+                        placeholder="Work completion date"
                         value={workOrder.completionDate}
                         onChange={ (event) => {
                             const copy = {...workOrder}
