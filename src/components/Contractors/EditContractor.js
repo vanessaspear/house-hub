@@ -62,7 +62,7 @@ export const EditContractor = () => {
     }
 
     //Form to collect information for updates to contractor info
-    return (
+    return <>
         <form className="contractorForm">
             <h2 className="contractorForm__title">Edit Contractor's Information</h2>
             <fieldset>
@@ -144,8 +144,8 @@ export const EditContractor = () => {
             <button 
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">
-                Add Contractor
+                Save Updates
             </button>
         </form>
-    )
+    </>
 }

@@ -11,7 +11,9 @@ export const EditWorkOrder = () => {
         startDate: "",
         completionDate: "",
         homeownerId: 0,
-        summary: ""
+        summary: "",
+        beforeImage: "",
+        afterImage: ""
     })
     const [contractors, setContractors] = useState([])
 
@@ -40,6 +42,44 @@ export const EditWorkOrder = () => {
         []
     )
 
+    //Use React and cloudinary upload widget to upload photos
+    //Cloudinary widget reference tutorial: https://cloudinary.com/documentation/react_image_and_video_upload
+    const beforeWidget = (event) => {
+        
+        event.preventDefault()
+
+        let widget = window.cloudinary.createUploadWidget(
+        {
+            cloudName: "decu5fbul",
+            uploadPreset: "househub"
+        },
+        (error, result) => {
+            if (!error && result && result.event === "success") {
+                const copy = {...workOrder}
+                copy.beforeImage = result.info.url
+                update(copy)
+            }})
+            widget.open()
+    }
+
+    const afterWidget = (event) => {
+        
+        event.preventDefault()
+
+        let widget = window.cloudinary.createUploadWidget(
+        {
+            cloudName: "decu5fbul",
+            uploadPreset: "househub"
+        },
+        (error, result) => {
+            if (!error && result && result.event === "success") {
+                const copy = {...workOrder}
+                copy.afterImage = result.info.url
+                update(copy)
+            }})
+            widget.open()
+    }
+
     const navigate = useNavigate()
 
     //Save work order object and post it to database when button is clicked
@@ -55,7 +95,9 @@ export const EditWorkOrder = () => {
             startDate: workOrder.startDate,
             completionDate: workOrder.completionDate,
             homeownerId: workOrder.homeownerId,
-            summary: workOrder.summary
+            summary: workOrder.summary,
+            beforeImage: workOrder.beforeImage,
+            afterImage: workOrder.afterImage
         }
 
         //Perform the fetch() to PUT the object to the API
@@ -147,6 +189,30 @@ export const EditWorkOrder = () => {
                         }} />
                 </div>
             </fieldset>
+            <section>
+                {
+                    workOrder.beforeImage !== ""
+                    ? <img src={workOrder.beforeImage} alt="" className="image-workOrderForm"/>
+                    : ""
+                }
+                
+                <button onClick={(event) => beforeWidget(event)}
+                    className="btn btn-primary">
+                    Add before photo
+                </button>
+            </section>
+            <section>
+                {
+                    workOrder.afterImage !== ""
+                    ? <img src={workOrder.afterImage} alt="" className="image-workOrderForm"/>
+                    : ""
+                }
+                
+                <button onClick={(event) => afterWidget(event)}
+                    className="btn btn-primary">
+                    Add after photo
+                </button>
+            </section>
             <button 
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">

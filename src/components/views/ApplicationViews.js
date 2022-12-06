@@ -33,7 +33,6 @@ export const ApplicationViews = () => {
                 <Route path="workOrders" element={ <WorkOrderContainer /> } />
                 <Route path="workOrder/:taskId/create" element={ <WorkOrderForm /> } />
                 <Route path="/workOrders/:workOrderId/edit" element={ <EditWorkOrder /> } />
-
             </Route>
         </Routes>
     )

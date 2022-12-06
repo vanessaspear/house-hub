@@ -10,6 +10,8 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
             <div>Contractor: {workOrder?.contractor?.company}</div>
             <div>Start Date: {workOrder.startDate}</div>
             <div>Completion Date: {workOrder.completionDate}</div>
+            <div>Before: <img src={workOrder.beforeImage}/></div>
+            <div>After: <img src={workOrder.afterImage}/></div>
             <footer>
             <button onClick={() => {
                 fetch(`http://localhost:8088/workOrders/${workOrder.id}`, {

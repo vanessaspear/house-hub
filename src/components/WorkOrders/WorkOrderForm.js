@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom" 
 
 export const WorkOrderForm = () => {
    
@@ -14,6 +14,8 @@ export const WorkOrderForm = () => {
         completionDate: "",
         homeownerId: 0,
         summary: "",
+        beforeImage: "",
+        afterImage: ""
     })
     //Initialize contractors list 
     const [contractors, setContractors] = useState([])
@@ -26,7 +28,6 @@ export const WorkOrderForm = () => {
                 .then((taskArray) => {
                     const taskObj = taskArray[0]
                     setTask(taskObj)
-                    console.log(task)
                 })
         },
         [taskId]
@@ -64,7 +65,9 @@ export const WorkOrderForm = () => {
             startDate: workOrder.startDate,
             completionDate: workOrder.completionDate,
             homeownerId: homeownerObj.id,
-            summary: workOrder.summary
+            summary: workOrder.summary,
+            beforeImage: workOrder.beforeImage,
+            afterImage: workOrder.afterImage
         }
 
         //Perform the fetch() to POST the new work order object to the API
@@ -80,6 +83,44 @@ export const WorkOrderForm = () => {
                 //Return user to work Orders list
                 navigate("/workOrders")
             })
+    }
+
+    //Use React and cloudinary upload widget to upload photos
+    //Cloudinary widget reference tutorial: https://cloudinary.com/documentation/react_image_and_video_upload
+    const beforeWidget = (event) => {
+        
+        event.preventDefault()
+
+        let widget = window.cloudinary.createUploadWidget(
+        {
+            cloudName: "decu5fbul",
+            uploadPreset: "househub"
+        },
+        (error, result) => {
+            if (!error && result && result.event === "success") {
+                const copy = {...workOrder}
+                copy.beforeImage = result.info.url
+                update(copy)
+            }})
+            widget.open()
+    }
+
+    const afterWidget = (event) => {
+        
+        event.preventDefault()
+
+        let widget = window.cloudinary.createUploadWidget(
+        {
+            cloudName: "decu5fbul",
+            uploadPreset: "househub"
+        },
+        (error, result) => {
+            if (!error && result && result.event === "success") {
+                const copy = {...workOrder}
+                copy.afterImage = result.info.url
+                update(copy)
+            }})
+            widget.open()
     }
 
     //JSX for create work order form
@@ -154,10 +195,34 @@ export const WorkOrderForm = () => {
                         }} />
                 </div>
             </fieldset>
+            <section>
+                {
+                    workOrder.beforeImage !== ""
+                    ? <img src={workOrder.beforeImage} alt="" className="image-workOrderForm"/>
+                    : ""
+                }
+                
+                <button onClick={(event) => beforeWidget(event)}
+                    className="btn btn-primary">
+                    Add before photo
+                </button>
+            </section>
+            <section>
+                {
+                    workOrder.afterImage !== ""
+                    ? <img src={workOrder.afterImage} alt="" className="image-workOrderForm"/>
+                    : ""
+                }
+                
+                <button onClick={(event) => afterWidget(event)}
+                    className="btn btn-primary">
+                    Add after photo
+                </button>
+            </section>
             <button 
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">
-                Save Work Order
+                Create Work Order
             </button>
         </form>
     </>
