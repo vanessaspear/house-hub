@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom"
+import Axios from 'axios'
 
 export const WorkOrderForm = () => {
    
@@ -14,10 +15,12 @@ export const WorkOrderForm = () => {
         completionDate: "",
         completionTime: "",
         homeownerId: 0,
-        summary: ""
+        summary: "",
+        image: ""
     })
     //Initialize contractors list 
     const [contractors, setContractors] = useState([])
+    const [image, setImage] = useState("")
 
     //Get task object
     useEffect(
@@ -57,31 +60,43 @@ export const WorkOrderForm = () => {
         event.preventDefault()
         console.log("Your work order has been created")
 
-        //Create the object to be saved to the API
-        const workOrderToSaveToAPI = {
-            //Task Id needs to be passed from the task list button
-            taskId: workOrder.taskId,
-            contractorId: workOrder.contractorId,
-            startDate: workOrder.startDate,
-            startTime: new Date(workOrder.startDate).toLocaleTimeString('en-us'),
-            completionDate: workOrder.completionDate,
-            completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
-            homeownerId: workOrder.homeownerId,
-            summary: workOrder.summary
-        }
+        //Upload the image to Cloudinary platform
+        //Followed tutorial: https://www.youtube.com/watch?v=Y-VgaRwWS3o
+        const formData = new FormData()
+        //Constructing the form data - add the imported file and upload preset
+        formData.append("file", image)
+        formData.append("upload_preset", "househub")
 
-        //Perform the fetch() to POST the new work order object to the API
-        return fetch(`http://localhost:8088/workOrders`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(workOrderToSaveToAPI)
-        })
-            .then(res => res.json())
-            .then(() => {
-                //Return user to work Orders list
-                navigate("/workOrders")
+        //Use Axios API to post photo to Cloudinary platform
+        Axios.post("https://api.cloudinary.com/v1_1/decu5fbul/image/upload", formData)
+            .then( response => {
+                //Create the object to be saved to the API
+                const workOrderToSaveToAPI = {
+                //Task Id needs to be passed from the task list button
+                taskId: parseInt(taskId),
+                contractorId: workOrder.contractorId,
+                startDate: workOrder.startDate,
+                startTime: new Date(workOrder.startDate).toLocaleTimeString('en-us'),
+                completionDate: workOrder.completionDate,
+                completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
+                homeownerId: homeownerObj.id,
+                summary: workOrder.summary,
+                image: response.data.url
+                }
+            
+                //Perform the fetch() to POST the new work order object to the API
+                return fetch(`http://localhost:8088/workOrders`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(workOrderToSaveToAPI)
+                })
+                    .then(res => res.json())
+                    .then(() => {
+                        //Return user to work Orders list
+                        navigate("/workOrders")
+                    })
             })
     }
 
@@ -157,6 +172,14 @@ export const WorkOrderForm = () => {
                         }} />
                 </div>
             </fieldset>
+            <section>
+                <input 
+                    type="file" 
+                    onChange={ (event) => {
+                        setImage(event.target.files[0])
+                    }}
+                />
+            </section>
             <button 
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">

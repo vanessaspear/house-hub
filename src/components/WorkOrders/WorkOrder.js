@@ -38,6 +38,12 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
                     : " Work is not yet completed"
                 }
             </div>
+            <div>
+                {
+                    workOrder.image ? <img src={workOrder?.image} />
+                    : ""
+                }
+            </div>
             <footer>
             <button onClick={() => {
                 fetch(`http://localhost:8088/workOrders/${workOrder.id}`, {
