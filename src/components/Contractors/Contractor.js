@@ -4,7 +4,7 @@ export const Contractor = ({ contractor, doRefresh, refresh }) => {
 
     return <>
         <section className="contractor" key={contractor.id}>
-            <header><Link to={`/contractor/${contractor.id}/edit`}>{contractor.company}</Link></header>
+            <header><Link to={`/contractors/${contractor.id}/edit`}>{contractor.company}</Link></header>
             <div>Primary Contact: {contractor.primaryContact}</div>
             <div>Phone: {contractor.phone}</div>
             <div>Email: {contractor.email}</div>
