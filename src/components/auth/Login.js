@@ -35,13 +35,13 @@ export const Login = () => {
             <img className="img-header" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670528969/HouseHub/Logos/logo_brown_banner2022-12-08_at_1.34.39_PM_a9ua9w.png" />
         </div>
         <main className="auth">
-            <header>
+            <header className="auth-header">
                 <h1>Welcome to HouseHub</h1>
                 <h1>Track, manage, and document your home projects with ease.</h1>
             </header>
             <section className="container-content">
                 <div className="container-media">
-                    <video src="https://res.cloudinary.com/decu5fbul/video/upload/v1670543520/HouseHub/Footage/201729_Drill_Drilling_Wood_Wooden_By_Martin_Flindt_Artlist_HD_cfikjq.mp4" autoPlay loop muted />
+                    <video className="login-video" src="https://res.cloudinary.com/decu5fbul/video/upload/v1670543520/HouseHub/Footage/201729_Drill_Drilling_Wood_Wooden_By_Martin_Flindt_Artlist_HD_cfikjq.mp4" autoPlay loop muted />
                 </div>
                 <div className="container--login">
                     <section>
@@ -68,7 +68,7 @@ export const Login = () => {
                     </section>
                 </div>
             </section>
-            <footer>
+            <footer className="container-footer">
                 <img className="img-footer" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670528969/HouseHub/Logos/logo_brown_banner_centered_slogan_2022-12-08_at_1.40.16_PM_ch035w.png" />
             </footer>
         </main>

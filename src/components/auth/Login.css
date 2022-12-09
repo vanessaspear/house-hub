@@ -1,7 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script:wght@400;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 .container-header {
     width: 100vw; 
     height: 9rem;
     background-color: #574848; 
+}
+
+.container-header_register {
+    width: 100vw; 
+    height: 9rem;
+    background-color: #B9625D; 
+}
+
+.container-footer {
+    width: 100vw; 
+    height: 9rem;
+    background-color: #574848; 
+    margin-top: auto;
+    text-align: center;
+    position: fixed;
+    bottom: 0; 
+    left: 0; 
+}
+
+.container-footer_register {
+    width: 100vw; 
+    height: 9rem;
+    background-color: #B9625D; 
+    margin-top: auto;
+    text-align: center;
+    position: fixed;
+    bottom: 0; 
+    left: 0; 
 }
 
 .img-header, .img-footer  {
@@ -11,16 +41,27 @@
     margin-top: 0.5rem;
 }
 
-footer {
-    width: 100vw; 
-    height: 9rem;
-    background-color: #574848; 
-    margin-top: auto;
-    text-align: center;
+.container-media {
+    display: flex;
+    width: 30rem;
+    align-content: center;
 }
 
-video {
+.container-reviews {
+    display: flex;
     width: 30rem;
+    align-content: center;
+    border: 0.1rem solid #b4a3a3; 
+    background-color: #C5B3B3;
+    text-shadow: 1px 1px 2px black;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.login-video {
+    width: 30rem;
+    border: 0.1rem solid black; 
 }
 
 .auth {
@@ -29,7 +70,7 @@ video {
     min-height: 100vh;
 }
 
-header {
+.auth-header {
     text-align: center;
     margin-top: 2rem;
 }
@@ -43,13 +84,13 @@ header {
     margin-right: auto;
 }
 
-.container--login {
+.container--login, .container--register {
     width: 30rem;
     margin-left: 2rem;
-    border: 3px solid gray;
+    border: 0.1rem solid black;
 }
 
-.form-login {
+.form-login, .form-register {
     text-align: center;
 }
 
@@ -64,7 +105,7 @@ header {
 
 }
 
-.btn-login {
+.btn-login, .btn-register {
     width: 18rem;
     height: 2rem;
     background-color: black;
@@ -85,7 +126,7 @@ fieldset {
     border: none; 
 }
 
-.email {
+.email, .name {
     display: flex;
     flex-direction: column;
     justify-content: baseline;
@@ -99,7 +140,20 @@ fieldset {
     margin-bottom: 1rem; 
 }
 
-.container-media {
-    width: 30rem;
-    border: 1px solid orange; 
+.slogan {
+    font-family: 'Oleo Script', cursive;
+    font-weight: 400;
+    text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+}
+
+.icon {
+    height: 36px;
+    width: 36px;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.review-comment {
+    width: 28rem;
+    margin: 0.5rem;
 }
