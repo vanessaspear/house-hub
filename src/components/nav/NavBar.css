@@ -1,15 +1,46 @@
-.navbar {
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script:wght@400;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+.navbar-list {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: left;
+    justify-content: center;
+    background-color: #574848;
+    margin-left: 13rem;
 }
 
 .navbar__item {
-    flex-basis: 20%;
+    margin-top: 1.5rem;
+    margin-left: 2rem;
     list-style-type: none;
+    text-shadow: 1px 1px 2px black;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.navbar__item:hover {
+    border-bottom: 1px solid #C5B3B3;
+    padding-bottom: 3px;
+}
+
+.navbar__link {
+    color: #C5B3B3;
+    text-decoration: none;
+}
+
+.navbar-logo {
+    width: 7rem;
+    height: 7rem;
+    margin-left: 1rem;
 }
 
 .navbar__logout {
-    margin-left: auto;
+    margin-left: 2rem;
+}
+
+.navbar-main {
+    display: flex;
+    width: 100vw; 
+    height: 7rem;
+    background-color: #574848; 
 }
 

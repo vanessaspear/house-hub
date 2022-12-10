@@ -62,7 +62,7 @@ export const TaskList = ({ searchTerm }) => {
     )
 
     return <>
-        <h2>Tasks List</h2>
+        <h2>My Tasks</h2>
 
         <button onClick={() => navigate("/task/create")}>Create Task</button>
 
