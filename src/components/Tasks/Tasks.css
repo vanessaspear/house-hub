@@ -1,4 +1,64 @@
-.task {
+.task-container {
     border: 1px solid blue;
     margin-bottom: 10px;
+}
+
+.task {
+    display: flex;
+}
+
+.task-image {
+    width: 20rem;
+    height: 15rem;
+}
+
+.task-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    margin-left: 1rem;
+    width: 20rem;
+}
+
+.task-options {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.task-item_title {
+    font-size: 1.25rem;
+    margin-bottom: 0.8rem;
+}
+
+.task-item_description {
+    margin-bottom: 0.8rem;
+}
+
+.task-item_edit {
+    text-decoration: none;
+    color: black;
+}
+
+.task-item_edit:hover {
+    border-bottom: 1px solid #000;
+    padding-bottom: 3px;
+}
+
+.task-item_edit:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.task-metrics {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    margin-left: 1rem;
+    border: 1px solid orange;
+}
+
+.task-metrics_item {
+    margin-bottom: 0.8rem;
 }

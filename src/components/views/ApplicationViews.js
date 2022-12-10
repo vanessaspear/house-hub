@@ -10,14 +10,14 @@ import { EditContractor } from "../Contractors/EditContractor"
 import { WorkOrderContainer } from "../WorkOrders/WorkOrderContainer"
 import { WorkOrderForm } from "../WorkOrders/WorkOrderForm"
 import { EditWorkOrder } from "../WorkOrders/EditWorkOrder"
+import { Footer } from "../Footer/Footer"
 
 export const ApplicationViews = () => {
 	return (
         <Routes>
             <Route path="/" element={
                 <>
-                    <h1>HouseHub</h1>
-                    <div>Happy Home, Happy Life</div>
+                    {/* <Footer /> */}
 
                     <Outlet />
                 </>

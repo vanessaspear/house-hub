@@ -66,10 +66,25 @@ export const Register = (props) => {
             </header>
             <section className="container-content">
                 <div className="container-reviews">
-                    <img className="icon" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616434/HouseHub/Resources/double-quotes-l_u4nuos.png" />
-                    <div className="review-comment">
-                        I was tired of using Excel spreadsheets and notes in my phone to track my home maintenance schedule and projects.  With HouseHub, I can manage my “to-do” list from anywhere!
-                        <img className="icon" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616434/HouseHub/Resources/double-quotes-r_phthml.png" />
+                    <div>
+                        <div className="review-comment">
+                            <img className="icon" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616434/HouseHub/Resources/double-quotes-l_u4nuos.png" />
+                            I was tired of using Excel spreadsheets and my phone notes to track home maintenance and projects.  HouseHub allows me to manage my “to-do” list from anywhere!
+                            <img className="icon" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616434/HouseHub/Resources/double-quotes-r_phthml.png" />
+                        </div>
+                        <div className="review-footer">
+                            <img className="review-photo" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670626914/HouseHub/Resources/christina-wocintechchat-com-SJvDxw0azqw-unsplash_qxmytm.jpg" />
+                            <div className="review-rating">
+                                <div>Bernae S.</div>
+                                <div>November 2022</div>
+                                <div>
+                                    <img className="review-stars" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616423/HouseHub/Resources/star-fill_ai4y2l.png" />
+                                    <img className="review-stars" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616423/HouseHub/Resources/star-fill_ai4y2l.png" />
+                                    <img className="review-stars" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616423/HouseHub/Resources/star-fill_ai4y2l.png" />
+                                    <img className="review-stars" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616423/HouseHub/Resources/star-fill_ai4y2l.png" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="container--register">
@@ -80,13 +95,13 @@ export const Register = (props) => {
                                 <label htmlFor="fullName"> Full Name </label>
                                 <input onChange={updateUser}
                                     type="text" id="fullName" className="form-control"
-                                    placeholder="Enter your name" required autoFocus />
+                                    required autoFocus />
                             </fieldset>
                             <fieldset className="email">
                                 <label htmlFor="email"> Email address </label>
                                 <input onChange={updateUser}
                                     type="email" id="email" className="form-control"
-                                    placeholder="Email address" required />
+                                    required />
                             </fieldset>
                             <fieldset>
                                 <button className="btn-register" type="submit">
@@ -95,7 +110,7 @@ export const Register = (props) => {
                             </fieldset>
                         </form>
                     <section className="link-register">
-                        <Link to="/login">Already a member? Log in. </Link>
+                        <Link to="/login">Already a member? Log in </Link>
                     </section>
                     </section>
                 </div>

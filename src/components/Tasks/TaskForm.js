@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Axios from 'axios'
 
 export const TaskForm = () => {
    
@@ -8,11 +9,13 @@ export const TaskForm = () => {
         description: "",
         homeId: 0,
         categoryId: 0,
-        frequencyId: 0
+        frequencyId: 0,
+        image: ""
     })
     const [homes, setHomes] = useState([])
     const [categories, setCategories] = useState([])
     const [frequencies, setFrequencies] = useState([])
+    const [image, setImage] = useState("")
 
     //Initialize homes state variable
     useEffect(
@@ -65,28 +68,40 @@ export const TaskForm = () => {
         event.preventDefault()
         console.log("Your task has been saved")
 
-        //Create the object to be saved to the API
-        const taskToSaveToAPI = {
-            title: task.title,
-            description: task.description,
-            homeId: homeId,
-            categoryId: task.categoryId,
-            frequencyId: task.frequencyId
-        }
+        //Upload the image to Cloudinary platform
+        //Followed tutorial: https://www.youtube.com/watch?v=Y-VgaRwWS3o
+        const formData = new FormData()
+        //Constructing the form data - add the imported file and upload preset
+        formData.append("file", image)
+        formData.append("upload_preset", "househub")
 
-        //Perform the fetch() to POST the new task object to the API
-        return fetch(`http://localhost:8088/tasks`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(taskToSaveToAPI)
-        })
-            .then(res => res.json())
-            .then(() => {
-                //Return user to tasks list
-                navigate("/tasks")
-            })
+        //Use Axios API to post photo to Cloudinary platform
+        Axios.post("https://api.cloudinary.com/v1_1/decu5fbul/image/upload", formData)
+            .then(response => {
+                    //Create the object to be saved to the API
+                    const taskToSaveToAPI = {
+                        title: task.title,
+                        description: task.description,
+                        homeId: homeId,
+                        categoryId: task.categoryId,
+                        frequencyId: task.frequencyId,
+                        image: response.data.url
+                    }
+
+                    //Perform the fetch() to POST the new task object to the API
+                    return fetch(`http://localhost:8088/tasks`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(taskToSaveToAPI)
+                    })
+                        .then(res => res.json())
+                        .then(() => {
+                            //Return user to tasks list
+                            navigate("/tasks")
+                        })
+                    })
     }
 
     return (
@@ -163,6 +178,14 @@ export const TaskForm = () => {
                     </select>
                 </div>
             </fieldset>
+            <section>
+                <input 
+                    type="file" 
+                    onChange={ (event) => {
+                        setImage(event.target.files[0])
+                    }}
+                />
+            </section>
             <button 
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">
