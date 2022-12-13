@@ -1,6 +1,19 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
+    const [openWorkOrder, updateWorkOrder] = useState([])
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/workOrders/${workOrder.id}`)
+                .then(res => res.json())
+                .then((workOrderObj) => {
+                    updateWorkOrder(workOrderObj)
+                })
+        },
+        []
+    )
 
     //Date format in database: "startDate": "2022-09-12T09:00"
     const startDateFormat = () => {
@@ -19,43 +32,90 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
         return displayCompletionDate
     }
 
+    const getDefaultImage = () => {
+        return <img className="task-image" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670689181/HouseHub/Images/cesar-carlevarino-aragon-NL_DF0Klepc-unsplash_wqjjaq.jpg" />
+    }
+
 
     return <>
-        <section className="workOrder" key={`workOrder--${workOrder.id}`}>
-            <header><Link to={`/workOrders/${workOrder.id}/edit`}>{workOrder?.task?.title}</Link></header>
-            <div>Description: {workOrder?.task?.description}</div>
-            <div>Work Summary: {workOrder.summary}</div>
-            <div>Contractor: {workOrder?.contractor?.company}</div>
-            <div>Start Date & Time: 
+        <section className="workOrder-container" key={`workOrder--${workOrder.id}`}>
+            <section className="workOrder">
                 {
-                    workOrder.startDate ? ` ${startDateFormat(workOrder.startDate)} at ${workOrder.startTime}`
-                    : "Work is not yet scheduled"
-                }
-            </div>
-            <div>Completion Date & Time: 
-                {
-                    workOrder.completionDate ? ` ${completionDateFormat(workOrder.completionDate)} at ${workOrder.completionTime}`
-                    : " Work is not yet completed"
-                }
-            </div>
-            <div>
-                {
-                    workOrder.image ? <img src={workOrder?.image} />
+                    workOrder.status === "Open" ? <>
+
+                    <div>
+                        {
+                            workOrder.image ? <img className="workOrder-image" src={workOrder?.image} />
+                            : getDefaultImage()
+                        }
+                    </div>
+                    <div className="workOrder-item">
+                        <div className="workOrder-item_title">{workOrder?.task?.title}</div>
+                        <div className="workOrder-item_description">{workOrder?.task?.description}</div>
+                        {
+                            workOrder.summary ? <div>Work Summary: {workOrder.summary}</div>
+                                : ""
+                        }
+                        <div className="workOrder-options">
+                            <Link className="workOrder-item_link" to={`/workOrders/${workOrder.id}/edit`}>Edit</Link>|
+                            <div className="workOrder-option_item" onClick={() => {
+                                fetch(`http://localhost:8088/workOrders/${workOrder.id}`, {
+                                    method: "DELETE"
+                                })
+                                    .then(() => {
+                                        doRefresh(!refresh)
+                                    })
+                            }}>
+                                Delete
+                            </div>|
+                            <div className="workOrder-option_item" onClick={() => {
+                            const copy = {...openWorkOrder}
+                            copy.status = "Closed"
+                            updateWorkOrder(copy)
+                            fetch(`http://localhost:8088/workOrders/${workOrder.id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(openWorkOrder)
+                            })
+                                .then(() => {
+                                    doRefresh(!refresh)
+                                })
+                            }}>Complete</div>
+                        </div>
+                    </div>
+                    <div className="workOrder-metrics">
+                        <div className="metrics-category">
+                            <img className="icon-category" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670968751/HouseHub/Resources/Screenshot_2022-12-13_at_3.52.16_PM_uu2gkk.png" />
+                            <div className="workOrder-metrics_item">{workOrder?.contractor?.company}</div>
+                        </div>
+                        <div className="metrics-category">
+                            <img className="icon-category" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670968751/HouseHub/Resources/Screenshot_2022-12-13_at_3.55.25_PM_zt3rvq.png" />
+                            <div className="workOrder-metrics_item"> 
+                                {
+                                    workOrder.startDate ? `${startDateFormat(workOrder.startDate)} at ${workOrder.startTime}`
+                                    : "Work is not yet scheduled"
+                                }
+                            </div>
+                        </div>
+                        <div className="metrics-category">
+                            {
+                                workOrder.completionDate ? <>
+                                    <img className="icon-category" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670968751/HouseHub/Resources/Screenshot_2022-12-13_at_3.57.29_PM_egwa7a.png" />
+                                    <div className="workOrder-metrics_item">
+                                        ${completionDateFormat(workOrder.completionDate)} at ${workOrder.completionTime}
+                                    </div>
+                                </>
+                                : <><img className="icon-category" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670968751/HouseHub/Resources/Screenshot_2022-12-13_at_3.57.05_PM_getb25.png" />
+                                <div className="workOrder-metrics_item">Work order is in-process</div></>
+                            }
+                        </div>
+                    </div>
+                </>
                     : ""
-                }
-            </div>
-            <footer>
-            <button onClick={() => {
-                fetch(`http://localhost:8088/workOrders/${workOrder.id}`, {
-                    method: "DELETE"
-                })
-                    .then(() => {
-                        doRefresh(!refresh)
-                    })
-            }}>
-                Delete
-            </button>
-            </footer>
+            }
+            </section>
         </section>
     </>
 }

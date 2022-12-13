@@ -62,8 +62,6 @@ export const WorkOrderList = ({ searchTerm }) => {
     )
 
     return <>
-        <h2>Your Work Orders</h2>
-
         <article className="workOrders">
             {
                 filteredWorkOrders.map(workOrder => {

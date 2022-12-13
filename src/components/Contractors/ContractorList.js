@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import { Contractor } from "./Contractor"
 import "./Contractors.css"
 
@@ -20,8 +19,6 @@ export const ContractorList = ({ searchTerm }) => {
         },
         []
     )
-
-    const navigate = useNavigate()
 
     //Find the homownerId of the user currently logged-in
     const localUser = localStorage.getItem("homeowner")
@@ -62,10 +59,6 @@ export const ContractorList = ({ searchTerm }) => {
     )
 
     return <>
-        <h2>Your Contractors</h2>
-
-        <button onClick={() => navigate("/contractor/create")}>Add Contractor</button>
-
         <article className="contractors">
             {
                 filteredContractors.map(contractor => {

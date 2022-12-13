@@ -1,13 +1,13 @@
 export const ContractorSearch = ({ setterFunction }) => {
     return (
         <div>
-            <input 
+            <input className="contractor-element_search"
                 onChange={
                     (changeEvent) => {
                         setterFunction(changeEvent.target.value)
                     } 
                 } 
-            type="text" placeholder="Search your contractors" />
+            type="text" placeholder="Search contractors" />
         </div>
     )
 }

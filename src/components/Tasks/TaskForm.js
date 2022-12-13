@@ -30,7 +30,7 @@ export const TaskForm = () => {
         []
     )
 
-    //Initialize workCategories state variable
+    //Initialize Categories state variable
     useEffect(
         () => {
             fetch(`http://localhost:8088/categories`)
@@ -42,7 +42,7 @@ export const TaskForm = () => {
         []
     )
 
-    //Initialize workFrequencies state variable
+    //Initialize Frequencies state variable
     useEffect(
         () => {
             fetch(`http://localhost:8088/frequencies`)
@@ -91,7 +91,7 @@ export const TaskForm = () => {
                     }
 
                     //Perform the fetch() to POST the new task object to the API
-                    return fetch(`http://localhost:8088/tasks`, {
+                    fetch(`http://localhost:8088/tasks`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
