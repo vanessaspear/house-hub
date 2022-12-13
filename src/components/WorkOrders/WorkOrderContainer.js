@@ -7,7 +7,14 @@ export const WorkOrderContainer = () => {
     const [search, updateSearch] = useState("")
 
     return <>
-        <WorkOrderSearch setterFunction={updateSearch} />
-        <WorkOrderList searchTerm={search} />
+        <main className="workOrders-list">
+            <h2>My Work Orders</h2>
+
+            <div className="workOrders-elements">
+                <WorkOrderSearch setterFunction={updateSearch} />
+            </div>
+            
+            <WorkOrderList searchTerm={search} />
+        </main>
     </>
 }

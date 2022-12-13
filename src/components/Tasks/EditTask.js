@@ -10,7 +10,9 @@ export const EditTask = () => {
         description: "",
         homeId: 0,
         categoryId: 0,
-        frequencyId: 0
+        frequencyId: 0,
+        image: "",
+        status: ""
     })
     const [categories, setCategories] = useState([])
     const [frequencies, setFrequencies] = useState([])
@@ -65,7 +67,9 @@ export const EditTask = () => {
             homeId: task.homeId,
             categoryId: task.categoryId,
             frequencyId: task.frequencyId,
-            id: task.id
+            id: task.id,
+            image: task.image,
+            status: task.status
         }
 
         //Perform the fetch() to PUT the object to the API

@@ -123,12 +123,17 @@
     font-weight: 700;
 }
 
-.link-register:hover {
+.link-register_item {
+    text-decoration: none;
+    color: black;
+}
+
+.link-register_item:hover {
     border-bottom: 1px solid #000;
     padding-bottom: 3px;
 }
 
-.link-register:visited {
+.link-register_item:visited {
     text-decoration: none;
     color: black;
 }

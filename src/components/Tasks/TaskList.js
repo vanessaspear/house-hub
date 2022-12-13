@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import { Task } from "./Task"
 import "./Tasks.css"
 
@@ -20,8 +19,6 @@ export const TaskList = ({ searchTerm }) => {
         },
         []
     )
-
-    const navigate = useNavigate()
 
     //Find the homownerId of the user currently logged-in
     const localUser = localStorage.getItem("homeowner")
@@ -62,16 +59,12 @@ export const TaskList = ({ searchTerm }) => {
     )
 
     return <>
-        <h2>My Tasks</h2>
-
-        <button onClick={() => navigate("/task/create")}>Create Task</button>
-
-        <article className="tasks">
-            {
-                filteredTasks.map(task => {
-                    return <Task task={ task } doRefresh={doRefresh} refresh={refresh}/>
-                })
-            }
-        </article>
+            <article className="tasks">
+                {
+                    filteredTasks.map(task => {
+                        return <Task task={ task } doRefresh={doRefresh} refresh={refresh}/>
+                    })
+                }
+            </article>
     </>
 }

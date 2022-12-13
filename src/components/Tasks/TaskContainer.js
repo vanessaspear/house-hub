@@ -1,12 +1,23 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { TaskList } from "../Tasks/TaskList"
 import { TaskSearch } from "../Tasks/TaskSearch"
 
 export const TaskContainer = () => {
     const [search, updateSearch] = useState("")
 
+    const navigate = useNavigate()
+
     return <>
-        <TaskSearch setterFunction={updateSearch} />
-        <TaskList searchTerm={search} />
+        <main className="tasks-list">
+            <h2>My Tasks</h2>
+
+            <div className="tasks-elements">
+                <button className="btn-create" onClick={() => navigate("/task/create")}>Create Task</button>
+                <TaskSearch setterFunction={updateSearch} />
+            </div>
+            
+            <TaskList searchTerm={search} />
+        </main>
     </>
 }

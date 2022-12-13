@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Axios from 'axios'
 
 export const ContractorForm = () => {
    
@@ -9,8 +10,11 @@ export const ContractorForm = () => {
         homeownerId: 0,
         phone: "",
         email: "",
-        specialty: ""
+        specialty: "",
+        image: "",
+        status: ""
     })
+    const [image, setImage] = useState("")
 
     //Find the homownerId of the user currently logged-in
    const localUser = localStorage.getItem("homeowner")
@@ -23,34 +27,46 @@ export const ContractorForm = () => {
         event.preventDefault()
         console.log("Your contractor has been added")
 
-        //Create the object to be saved to the API
-        const contractorToSaveToAPI = {
-            primaryContact: contractor.primaryContact,
-            company: contractor.company,
-            homeownerId: homeownerObj.id,
-            phone: contractor.phone,
-            email: contractor.email,
-            specialty: contractor.specialty
-        }
+        const formData = new FormData()
+        //Constructing the form data - add the imported file and upload preset
+        formData.append("file", image)
+        formData.append("upload_preset", "househub")
 
-        //Perform the fetch() to POST the new contractor object to the API
-        return fetch(`http://localhost:8088/contractors`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(contractorToSaveToAPI)
-        })
-            .then(res => res.json())
-            .then(() => {
-                //Return user to contractors list
-                navigate("/contractors")
-            })
+        //Use Axios API to post photo to Cloudinary platform
+        Axios.post("https://api.cloudinary.com/v1_1/decu5fbul/image/upload", formData)
+            .then(response => { 
+                
+                //Create the object to be saved to the API
+                const contractorToSaveToAPI = {
+                    primaryContact: contractor.primaryContact,
+                    company: contractor.company,
+                    homeownerId: homeownerObj.id,
+                    phone: contractor.phone,
+                    email: contractor.email,
+                    specialty: contractor.specialty,
+                    image: response.data.url,
+                    status: "Active"
+                }
+        
+                //Perform the fetch() to POST the new contractor object to the API
+                fetch(`http://localhost:8088/contractors`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(contractorToSaveToAPI)
+                })
+                    .then(res => res.json())
+                    .then(() => {
+                        //Return user to contractors list
+                        navigate("/contractors")
+                    })
+                })
     }
 
     return (
         <form className="contractorForm">
-            <h2 className="contractorForm__title">Add a contractor</h2>
+            <h2 className="contractorForm__title">Add Contractor</h2>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="company">Company:</label>
@@ -88,7 +104,7 @@ export const ContractorForm = () => {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Format: (XXX) XXX-XXXX"
+                        placeholder="(XXX) XXX-XXXX"
                         value={contractor.phone}
                         onChange={ (event) => {
                             const copy = {...contractor}
@@ -127,6 +143,14 @@ export const ContractorForm = () => {
                         }} />
                 </div>
             </fieldset>
+            <section>
+                <input 
+                    type="file" 
+                    onChange={ (event) => {
+                        setImage(event.target.files[0])
+                    }}
+                />
+            </section>
             <button 
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">

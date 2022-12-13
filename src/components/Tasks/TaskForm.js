@@ -10,7 +10,8 @@ export const TaskForm = () => {
         homeId: 0,
         categoryId: 0,
         frequencyId: 0,
-        image: ""
+        image: "",
+        status: "Active"
     })
     const [homes, setHomes] = useState([])
     const [categories, setCategories] = useState([])
@@ -29,7 +30,7 @@ export const TaskForm = () => {
         []
     )
 
-    //Initialize workCategories state variable
+    //Initialize Categories state variable
     useEffect(
         () => {
             fetch(`http://localhost:8088/categories`)
@@ -41,7 +42,7 @@ export const TaskForm = () => {
         []
     )
 
-    //Initialize workFrequencies state variable
+    //Initialize Frequencies state variable
     useEffect(
         () => {
             fetch(`http://localhost:8088/frequencies`)
@@ -85,11 +86,12 @@ export const TaskForm = () => {
                         homeId: homeId,
                         categoryId: task.categoryId,
                         frequencyId: task.frequencyId,
-                        image: response.data.url
+                        image: response.data.url,
+                        status: "Active"
                     }
 
                     //Perform the fetch() to POST the new task object to the API
-                    return fetch(`http://localhost:8088/tasks`, {
+                    fetch(`http://localhost:8088/tasks`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"

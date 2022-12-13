@@ -64,7 +64,7 @@ export const Login = () => {
                     <hr className="divider"></hr>
                     </section>
                     <section className="link-register">
-                        <Link to="/register">Create a member account</Link>
+                        <Link className="link-register_item" to="/register">Create a member account</Link>
                     </section>
                 </div>
             </section>

@@ -1,13 +1,13 @@
 export const TaskSearch = ({ setterFunction }) => {
     return (
         <div>
-            <input 
+            <input className="task-element_search"
                 onChange={
                     (changeEvent) => {
                         setterFunction(changeEvent.target.value)
                     } 
                 } 
-            type="text" placeholder="Search your tasks" />
+            type="text" placeholder="Search tasks" />
         </div>
     )
 }

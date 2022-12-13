@@ -11,7 +11,9 @@ export const EditContractor = () => {
         homeownerId: 0,
         phone: "",
         email: "",
-        specialty: ""
+        specialty: "",
+        image: "",
+        status: ""
     })
 
     //Get the contractor object that needs to be modified
@@ -42,7 +44,9 @@ export const EditContractor = () => {
             phone: contractor.phone,
             email: contractor.email,
             specialty: contractor.specialty,
-            id: contractor.id
+            id: contractor.id,
+            image: contractor.image,
+            status: contractor.status
         }
 
         //Perform the fetch() to PUT the object to the API

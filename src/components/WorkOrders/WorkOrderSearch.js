@@ -1,13 +1,13 @@
 export const WorkOrderSearch = ({ setterFunction }) => {
     return (
         <div>
-            <input 
+            <input className="workOrder-element_search"
                 onChange={
                     (changeEvent) => {
                         setterFunction(changeEvent.target.value)
                     } 
                 } 
-            type="text" placeholder="Search your work orders" />
+            type="text" placeholder="Search work orders" />
         </div>
     )
 }
