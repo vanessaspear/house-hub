@@ -70,6 +70,8 @@ export const WorkOrderForm = () => {
         //Use Axios API to post photo to Cloudinary platform
         Axios.post("https://api.cloudinary.com/v1_1/decu5fbul/image/upload", formData)
             .then( response => {
+                console.log(response)
+                console.log(response.data.url)
                 //Create the object to be saved to the API
                 const workOrderToSaveToAPI = {
                 //Task Id needs to be passed from the task list button
@@ -85,7 +87,7 @@ export const WorkOrderForm = () => {
                 }
             
                 //Perform the fetch() to POST the new work order object to the API
-                return fetch(`http://localhost:8088/workOrders`, {
+                fetch(`http://localhost:8088/workOrders`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

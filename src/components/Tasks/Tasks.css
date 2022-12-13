@@ -1,6 +1,8 @@
 .task-container {
-    border: 1px solid blue;
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 10px;
     margin-bottom: 10px;
+    width: 63rem;
 }
 
 .task {
@@ -10,6 +12,7 @@
 .task-image {
     width: 20rem;
     height: 15rem;
+    border: 1px solid black;
 }
 
 .task-item {
@@ -17,17 +20,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: baseline;
-    margin-left: 1rem;
+    margin-left: 2rem;
     width: 20rem;
-}
-
-.task-options {
-    display: flex;
-    justify-content: flex-end;
 }
 
 .task-item_title {
     font-size: 1.25rem;
+    font-weight: bold;
     margin-bottom: 0.8rem;
 }
 
@@ -35,17 +34,18 @@
     margin-bottom: 0.8rem;
 }
 
-.task-item_edit {
+.task-item_link {
     text-decoration: none;
     color: black;
+    margin-right: 0.25rem;
 }
 
-.task-item_edit:hover {
+.task-item_link:hover {
     border-bottom: 1px solid #000;
     padding-bottom: 3px;
 }
 
-.task-item_edit:visited {
+.task-item_link:visited {
     text-decoration: none;
     color: black;
 }
@@ -56,9 +56,61 @@
     justify-content: center;
     align-items: baseline;
     margin-left: 1rem;
-    border: 1px solid orange;
 }
 
-.task-metrics_item {
+.metrics-category {
+    display: flex;
+    align-items: center;
     margin-bottom: 0.8rem;
+}
+
+.icon-category {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.50rem;
+}
+
+.task-options {
+    display: flex;
+}
+
+.task-option_item {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+.task-option_item:hover {
+    border-bottom: 1px solid #000;
+    padding-bottom: 3px;
+}
+
+.tasks-list {
+    width: 67rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-create {
+    width: 18rem;
+    height: 2rem;
+    background-color: black;
+    color: white;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.tasks-elements {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.task-element_search {
+    width: 18rem;
+    height: 1.7rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    margin-left: 1rem;
 }

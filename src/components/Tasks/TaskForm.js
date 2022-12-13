@@ -10,7 +10,8 @@ export const TaskForm = () => {
         homeId: 0,
         categoryId: 0,
         frequencyId: 0,
-        image: ""
+        image: "",
+        status: "Active"
     })
     const [homes, setHomes] = useState([])
     const [categories, setCategories] = useState([])
@@ -85,7 +86,8 @@ export const TaskForm = () => {
                         homeId: homeId,
                         categoryId: task.categoryId,
                         frequencyId: task.frequencyId,
-                        image: response.data.url
+                        image: response.data.url,
+                        status: "Active"
                     }
 
                     //Perform the fetch() to POST the new task object to the API
