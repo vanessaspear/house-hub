@@ -82,6 +82,7 @@ export const Register = (props) => {
                                     <img className="review-stars" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616423/HouseHub/Resources/star-fill_ai4y2l.png" />
                                     <img className="review-stars" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616423/HouseHub/Resources/star-fill_ai4y2l.png" />
                                     <img className="review-stars" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616423/HouseHub/Resources/star-fill_ai4y2l.png" />
+                                    <img className="review-stars" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670616423/HouseHub/Resources/star-fill_ai4y2l.png" />
                                 </div>
                             </div>
                         </div>

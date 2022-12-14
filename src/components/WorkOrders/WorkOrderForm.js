@@ -57,6 +57,7 @@ export const WorkOrderForm = () => {
     const navigate = useNavigate()
 
     const handleSaveButtonClick = (event) => {
+        if (image) {
         event.preventDefault()
         console.log("Your work order has been created")
 
@@ -70,8 +71,6 @@ export const WorkOrderForm = () => {
         //Use Axios API to post photo to Cloudinary platform
         Axios.post("https://api.cloudinary.com/v1_1/decu5fbul/image/upload", formData)
             .then( response => {
-                console.log(response)
-                console.log(response.data.url)
                 //Create the object to be saved to the API
                 const workOrderToSaveToAPI = {
                 //Task Id needs to be passed from the task list button
@@ -83,7 +82,8 @@ export const WorkOrderForm = () => {
                 completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
                 homeownerId: homeownerObj.id,
                 summary: workOrder.summary,
-                image: response.data.url
+                image: response.data.url,
+                status: "Open"
                 }
             
                 //Perform the fetch() to POST the new work order object to the API
@@ -100,93 +100,169 @@ export const WorkOrderForm = () => {
                         navigate("/workOrders")
                     })
             })
+        } else {
+            event.preventDefault()
+            console.log("Your work order has been created")
+
+            //Create the object to be saved to the API
+            const workOrderToSaveToAPI = {
+            //Task Id needs to be passed from the task list button
+            taskId: parseInt(taskId),
+            contractorId: workOrder.contractorId,
+            startDate: workOrder.startDate,
+            startTime: new Date(workOrder.startDate).toLocaleTimeString('en-us'),
+            completionDate: workOrder.completionDate,
+            completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
+            homeownerId: homeownerObj.id,
+            summary: workOrder.summary,
+            image: "",
+            status: "Open"
+            }
+        
+            //Perform the fetch() to POST the new work order object to the API
+            fetch(`http://localhost:8088/workOrders`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(workOrderToSaveToAPI)
+            })
+                .then(res => res.json())
+                .then(() => {
+                    //Return user to work Orders list
+                    navigate("/workOrders")
+                })
+        }
     }
 
     //JSX for create work order form
     return <>
         <form className="workOrderForm">
-            <h2 className="workOrderForm__title">Create a Work Order</h2>  
-            <div>Title: {task.title}</div>        
-            <div>Description: {task.description}</div>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="summary">Work Summary:</label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control"
-                        placeholder="How did the work go?"
-                        value={workOrder.summary}
-                        onChange={ (event) => {
-                            const copy = {...workOrder}
-                            copy.summary = event.target.value
-                            update(copy)
-                        }} />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="contractor">Contractor:</label>
-                    <select
-                        className="form-control"
-                        onChange={ (event) => {
-                            const copy = {...workOrder}
-                            copy.contractorId = parseInt(event.target.value)
-                            update(copy)
-                        }}
-                        >
-                        <option value={0}>Homeowner (No contractor required)</option>
-                        {
-                            contractors.map(contractor => {
-                                return <option value={contractor.id} key={`contractor--${contractor.id}`}>{contractor.company} (Specialty: {contractor.specialty})</option>
-                            })
-                        }
-                    </select>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="startDate">Start Date:</label>
-                    <input
-                        type="datetime-local"
-                        className="form-control"
-                        placeholder="Scheduled work start date"
-                        value={workOrder.startDate}
-                        onChange={ (event) => {
-                            const copy = {...workOrder}
-                            copy.startDate = event.target.value
-                            update(copy)
-                        }} />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="completionDate">Completion Date:</label>
-                    <input
-                        type="datetime-local"
-                        className="form-control"
-                        placeholder="Work completion date"
-                        value={workOrder.completionDate}
-                        onChange={ (event) => {
-                            const copy = {...workOrder}
-                            copy.completionDate = event.target.value
-                            update(copy)
-                        }} />
-                </div>
-            </fieldset>
-            <section>
-                <input 
-                    type="file" 
-                    onChange={ (event) => {
-                        setImage(event.target.files[0])
-                    }}
-                />
+            <h2 className="workOrderForm__title">Create Work Order</h2>
+            <section className="taskForm_groups">  
+            <div>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="title">Title</label>
+                        <input
+                            required autoFocus
+                            type="text"
+                            id="title"
+                            className="form-control"
+                            value={task.title}
+                            onChange={ (event) => {
+                                const copy = {...task}
+                                copy.title = event.target.value
+                                update(copy)
+                            }} />
+                    </div>
+                </fieldset>        
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="description">Description</label>
+                        <textarea
+                            required
+                            className="form-control_description"
+                            id="description"
+                            value={task.description}
+                            onChange={ (event) => {
+                                const copy = {...task}
+                                copy.description = event.target.value
+                                update(copy)
+                            }} />
+                    </div>
+                </fieldset>
+            </div>
+            <div>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="contractor">Contractor</label>
+                        <select
+                            className="form-control"
+                            onChange={ (event) => {
+                                const copy = {...workOrder}
+                                copy.contractorId = parseInt(event.target.value)
+                                update(copy)
+                            }}
+                            >
+                            <option value={0}>Homeowner (No contractor required)</option>
+                            {
+                                contractors.map(contractor => {
+                                    return <option value={contractor.id} key={`contractor--${contractor.id}`}>{contractor.company} (Specialty: {contractor.specialty})</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="summary">Work Notes</label>
+                        <textarea
+                            required 
+                            type="text"
+                            className="form-control_description"
+                            value={workOrder.summary}
+                            onChange={ (event) => {
+                                const copy = {...workOrder}
+                                copy.summary = event.target.value
+                                update(copy)
+                            }} />
+                    </div>
+                </fieldset>
+            </div>
+            <div>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="startDate">Start Date</label>
+                        <input
+                            type="datetime-local"
+                            className="form-control"
+                            placeholder="Scheduled work start date"
+                            value={workOrder.startDate}
+                            onChange={ (event) => {
+                                const copy = {...workOrder}
+                                copy.startDate = event.target.value
+                                update(copy)
+                            }} />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="completionDate">Completion Date</label>
+                        <input
+                            type="datetime-local"
+                            className="form-control"
+                            placeholder="Work completion date"
+                            value={workOrder.completionDate}
+                            onChange={ (event) => {
+                                const copy = {...workOrder}
+                                copy.completionDate = event.target.value
+                                update(copy)
+                            }} />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="Image">Add an Image (Optional)</label>
+                        <input 
+                            className="form-image"
+                            id="Image"
+                            type="file" 
+                            onChange={ (event) => {
+                                setImage(event.target.files[0])
+                                }}
+                            />
+                    </div>
+                </fieldset>
+            </div>
             </section>
-            <button 
-                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
-                Save Work Order
-            </button>
+            <div className="btn-container">
+                <button 
+                    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                    className="btn-create_task">
+                    Create Work Order
+                </button>
+            </div>
         </form>
     </>
 }

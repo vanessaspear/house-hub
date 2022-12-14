@@ -52,10 +52,6 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
                     <div className="workOrder-item">
                         <div className="workOrder-item_title">{workOrder?.task?.title}</div>
                         <div className="workOrder-item_description">{workOrder?.task?.description}</div>
-                        {
-                            workOrder.summary ? <div>Work Summary: {workOrder.summary}</div>
-                                : ""
-                        }
                         <div className="workOrder-options">
                             <Link className="workOrder-item_link" to={`/workOrders/${workOrder.id}/edit`}>Edit</Link>|
                             <div className="workOrder-option_item" onClick={() => {
@@ -82,7 +78,7 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
                                 .then(() => {
                                     doRefresh(!refresh)
                                 })
-                            }}>Complete</div>
+                            }}>Close</div>
                         </div>
                     </div>
                     <div className="workOrder-metrics">
@@ -104,11 +100,17 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
                                 workOrder.completionDate ? <>
                                     <img className="icon-category" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670968751/HouseHub/Resources/Screenshot_2022-12-13_at_3.57.29_PM_egwa7a.png" />
                                     <div className="workOrder-metrics_item">
-                                        ${completionDateFormat(workOrder.completionDate)} at ${workOrder.completionTime}
+                                        {completionDateFormat(workOrder.completionDate)} at {workOrder.completionTime}
                                     </div>
                                 </>
                                 : <><img className="icon-category" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670968751/HouseHub/Resources/Screenshot_2022-12-13_at_3.57.05_PM_getb25.png" />
                                 <div className="workOrder-metrics_item">Work order is in-process</div></>
+                            }
+                        </div>
+                        <div className="metrics-category">
+                            {
+                                workOrder.summary ? <div className="workOrder-item_summary">Work Notes - {workOrder.summary}</div>
+                                    : ""
                             }
                         </div>
                     </div>
