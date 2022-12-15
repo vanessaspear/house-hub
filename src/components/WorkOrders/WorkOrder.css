@@ -30,7 +30,7 @@
     margin-bottom: 0.8rem;
 }
 
-.workOrder-item_description {
+.workOrder-item_description, .workOrder-item_summary {
     margin-bottom: 0.8rem;
 }
 

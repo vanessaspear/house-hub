@@ -11,6 +11,7 @@ import { WorkOrderContainer } from "../WorkOrders/WorkOrderContainer"
 import { WorkOrderForm } from "../WorkOrders/WorkOrderForm"
 import { EditWorkOrder } from "../WorkOrders/EditWorkOrder"
 import { Footer } from "../Footer/Footer"
+import { EditHome } from "../Home/EditHome"
 
 export const ApplicationViews = () => {
 	return (
@@ -24,6 +25,7 @@ export const ApplicationViews = () => {
             }>
                 <Route path="add-home" element={ <HomeForm /> } />
                 <Route path="your-home" element={ <YourHome /> } />
+                <Route path="home/:homeId/edit" element={ <EditHome /> } />
                 <Route path="tasks" element={ <TaskContainer /> } />
                 <Route path="task/create" element={ <TaskForm /> } />
                 <Route path="/tasks/:taskId/edit" element={ <EditTask /> } />

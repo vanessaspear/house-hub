@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import Axios from 'axios'
 
 export const EditWorkOrder = () => {
 
@@ -13,9 +14,11 @@ export const EditWorkOrder = () => {
         completionDate: "",
         completionTime: "",
         homeownerId: 0,
-        summary: ""
+        summary: "", 
+        image: ""
     })
     const [contractors, setContractors] = useState([])
+    const [image, setImage] = useState("")
 
     //Get the work order object that needs to be modified
     useEffect(
@@ -46,116 +49,213 @@ export const EditWorkOrder = () => {
 
     //Save work order object and post it to database when button is clicked
     const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-        console.log("Your work order edit has been saved")
+        if (image) {
+            //Upload the image to Cloudinary platform
+            //Followed tutorial: https://www.youtube.com/watch?v=Y-VgaRwWS3o
+            const formData = new FormData()
+            //Constructing the form data - add the imported file and upload preset
+            formData.append("file", image)
+            formData.append("upload_preset", "househub")
 
-        //Create the object to be saved to the API
-        const saveDataToAPI = {
-            id: workOrderId,
-            taskId: workOrder.taskId,
-            contractorId: workOrder.contractorId,
-            startDate: workOrder.startDate,
-            startTime: new Date(workOrder.startDate).toLocaleTimeString('en-us'),
-            completionDate: workOrder.completionDate,
-            completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
-            homeownerId: workOrder.homeownerId,
-            summary: workOrder.summary
+            //Use Axios API to post photo to Cloudinary platform
+            Axios.post("https://api.cloudinary.com/v1_1/decu5fbul/image/upload", formData)
+                .then( response => {
+                    event.preventDefault()
+                    console.log("Your work order edit has been saved")
+            
+                    //Create the object to be saved to the API
+                    const saveDataToAPI = {
+                        id: workOrderId,
+                        taskId: workOrder.taskId,
+                        contractorId: workOrder.contractorId,
+                        startDate: workOrder.startDate,
+                        startTime: new Date(workOrder.startDate).toLocaleTimeString('en-us'),
+                        completionDate: workOrder.completionDate,
+                        completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
+                        homeownerId: workOrder.homeownerId,
+                        summary: workOrder.summary, 
+                        image: response.data.url,
+                        status: workOrder.status
+                    }
+            
+                    //Perform the fetch() to PUT the object to the API
+                    return fetch(`http://localhost:8088/workOrders/${workOrderId}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(saveDataToAPI)
+                    })
+                        .then(res => res.json())
+                        .then(
+                            () => {
+                                navigate("/workOrders")
+                            })
+                })
+        } else {
+            event.preventDefault()
+            console.log("Your work order edit has been saved")
+    
+            //Create the object to be saved to the API
+            const saveDataToAPI = {
+                id: workOrderId,
+                taskId: workOrder.taskId,
+                contractorId: workOrder.contractorId,
+                startDate: workOrder.startDate,
+                startTime: new Date(workOrder.startDate).toLocaleTimeString('en-us'),
+                completionDate: workOrder.completionDate,
+                completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
+                homeownerId: workOrder.homeownerId,
+                summary: workOrder.summary, 
+                image: workOrder.image,
+                status: workOrder.status
+            }
+    
+            //Perform the fetch() to PUT the object to the API
+            return fetch(`http://localhost:8088/workOrders/${workOrderId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(saveDataToAPI)
+            })
+                .then(res => res.json())
+                .then(
+                    () => {
+                        navigate("/workOrders")
+                    })
         }
-
-        //Perform the fetch() to PUT the object to the API
-        return fetch(`http://localhost:8088/workOrders/${workOrderId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(saveDataToAPI)
-        })
-            .then(res => res.json())
-            .then(
-                () => {
-                    navigate("/workOrders")
-                }
-            )
     }
 
     //Form to collect information for updates to work order info
-    return (
+    return (<>
         <form className="workOrderForm">
             <h2 className="workOrderForm__title">Edit Work Order</h2>
-            <div>Title: {workOrder?.task?.title}</div>
-            <div>Description: {workOrder?.task?.description}</div>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="summary">Work Summary:</label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control"
-                        placeholder="How did the work go?"
-                        value={workOrder.summary}
-                        onChange={ (event) => {
-                            const copy = {...workOrder}
-                            copy.summary = event.target.value
-                            update(copy)
-                        }} />
+            <section className="taskForm_groups"> 
+                <div>
+                    <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="title">Title</label>
+                        <input
+                            required autoFocus
+                            type="text"
+                            id="title"
+                            className="form-control"
+                            value={workOrder?.task?.title}
+                            onChange={ (event) => {
+                                const copy = {...workOrder}
+                                copy.title = event.target.value
+                                update(copy)
+                            }} />
+                    </div>
+                    </fieldset>        
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="description">Description</label>
+                            <textarea
+                                required
+                                className="form-control_description"
+                                id="description"
+                                value={workOrder?.task?.description}
+                                onChange={ (event) => {
+                                    const copy = {...workOrder}
+                                    copy.description = event.target.value
+                                    update(copy)
+                                }} />
+                        </div>
+                    </fieldset>
                 </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="contractor">Contractor:</label>
-                    <select
-                        className="form-control"
-                        value={workOrder.contractorId}
-                        onChange={ (event) => {
-                            const copy = {...workOrder}
-                            copy.contractorId = parseInt(event.target.value)
-                            update(copy)
-                        }}
-                        >
-                        <option value={0}>Homeowner (No contractor required)</option>
-                        {
-                            contractors.map(contractor => {
-                                return <option value={contractor.id} key={`contractor--${contractor.id}`}>{contractor.company} (Specialty: {contractor.specialty})</option>
-                            })
-                        }
-                    </select>
+                <div>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="contractor">Contractor</label>
+                            <select
+                                className="form-control"
+                                value={workOrder.contractorId}
+                                onChange={ (event) => {
+                                    const copy = {...workOrder}
+                                    copy.contractorId = parseInt(event.target.value)
+                                    update(copy)
+                                }}
+                                >
+                                <option value={0}>Homeowner (No contractor required)</option>
+                                {
+                                    contractors.map(contractor => {
+                                        return <option value={contractor.id} key={`contractor--${contractor.id}`}>{contractor.company} (Specialty: {contractor.specialty})</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="summary">Work Notes</label>
+                            <input
+                                required autoFocus
+                                type="text"
+                                className="form-control_description"
+                                value={workOrder.summary}
+                                onChange={ (event) => {
+                                    const copy = {...workOrder}
+                                    copy.summary = event.target.value
+                                    update(copy)
+                                }} />
+                        </div>
+                    </fieldset>
                 </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="startDate">Start Date:</label>
-                    <input
-                        type="datetime-local"
-                        className="form-control"
-                        placeholder="Scheduled work start date"
-                        value={workOrder.startDate}
-                        onChange={ (event) => {
-                            const copy = {...workOrder}
-                            copy.startDate = event.target.value
-                            update(copy)
-                        }} />
+                <div>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="startDate">Start Date</label>
+                            <input
+                                type="datetime-local"
+                                className="form-control"
+                                placeholder="Scheduled work start date"
+                                value={workOrder.startDate}
+                                onChange={ (event) => {
+                                    const copy = {...workOrder}
+                                    copy.startDate = event.target.value
+                                    update(copy)
+                                }} />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="completionDate">Completion Date</label>
+                            <input
+                                type="datetime-local"
+                                className="form-control"
+                                placeholder="Work completion date"
+                                value={workOrder.completionDate}
+                                onChange={ (event) => {
+                                    const copy = {...workOrder}
+                                    copy.completionDate = event.target.value
+                                    update(copy)
+                                }} />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="Image">Add an Image (Optional)</label>
+                            <input 
+                                className="form-image"
+                                id="Image"
+                                type="file" 
+                                onChange={ (event) => {
+                                    setImage(event.target.files[0])
+                                    }}
+                                />
+                        </div>
+                    </fieldset>
                 </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="completionDate">Completion Date:</label>
-                    <input
-                        type="datetime-local"
-                        className="form-control"
-                        placeholder="Work completion date"
-                        value={workOrder.completionDate}
-                        onChange={ (event) => {
-                            const copy = {...workOrder}
-                            copy.completionDate = event.target.value
-                            update(copy)
-                        }} />
-                </div>
-            </fieldset>
-            <button 
-                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
-                Save Work Order
-            </button>
+            </section>
+            <div className="btn-container">
+                <button 
+                    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                    className="btn-create_task">
+                    Save Edits
+                </button>
+            </div>
         </form>
-    )
+    </>)
 }
