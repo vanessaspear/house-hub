@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Axios from 'axios'
 
 export const HomeForm = () => {
     
@@ -10,8 +11,9 @@ export const HomeForm = () => {
         yearBuilt: "",
         construction: "",
         roofType: "",
-        photo: ""
+        image: ""
     })
+    const [image, setImage] = useState("")
 
     //Get current user's homeowner object
     const localUser = localStorage.getItem("homeowner")
@@ -22,48 +24,87 @@ export const HomeForm = () => {
 
     //Save home object with homeowner ID and post home object to database when button is clicked
     const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-        console.log("Your home has been added to your profile")
+        
+        if (image) {
+            event.preventDefault()
+            console.log("Your home has been added to your profile")
 
-        //Create the object to be saved to the API
-        const saveDataToAPI = {
-            homeownerId: homeownerUserObject.id,
-            name: home.name,
-            address: home.address,
-            yearBuilt: home.yearBuilt,
-            construction: home.construction,
-            roofType: home.roofType,
-            photo: home.photo
-        }
+            //Upload the image to Cloudinary platform
+            //Followed tutorial: https://www.youtube.com/watch?v=Y-VgaRwWS3o
+            const formData = new FormData()
+            //Constructing the form data - add the imported file and upload preset
+            formData.append("file", image)
+            formData.append("upload_preset", "househub")
 
-        //Perform the fetch() to POST the object to the API
-        return fetch("http://localhost:8088/homes", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(saveDataToAPI)
-        })
-            .then(res => res.json())
-            .then(
-                () => {
-                    navigate("/")
-                }
-            )
+            //Use Axios API to post photo to Cloudinary platform
+            Axios.post("https://api.cloudinary.com/v1_1/decu5fbul/image/upload", formData)
+                .then( response => {
+                    //Create the object to be saved to the API
+                    const saveDataToAPI = {
+                        homeownerId: homeownerUserObject.id,
+                        name: home.name,
+                        address: home.address,
+                        yearBuilt: home.yearBuilt,
+                        construction: home.construction,
+                        roofType: home.roofType,
+                        image: response.data.url
+                    }
+
+                    //Perform the fetch() to POST the object to the API
+                    return fetch("http://localhost:8088/homes", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(saveDataToAPI)
+                    })
+                        .then(res => res.json())
+                        .then(
+                            () => {
+                                navigate("/your-home")
+                            })
+                        })
+            } else {
+                //Create the object to be saved to the API
+                    const saveDataToAPI = {
+                        homeownerId: homeownerUserObject.id,
+                        name: home.name,
+                        address: home.address,
+                        yearBuilt: home.yearBuilt,
+                        construction: home.construction,
+                        roofType: home.roofType,
+                        image: home.image
+                    }
+
+                    //Perform the fetch() to POST the object to the API
+                    return fetch("http://localhost:8088/homes", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(saveDataToAPI)
+                    })
+                        .then(res => res.json())
+                        .then(
+                            () => {
+                                navigate("/your-home")
+                            })
+            }
     }
 
     //Form to collect information for new home entry
     return <>
         <form className="homeForm">
-            <h2 className="homeForm__title">Add Your Home</h2>
+            <h2 className="homeForm__title">Add Home</h2>
+            <section className="taskForm_groups"> 
+            <div>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="name">Home Name:</label>
+                    <label htmlFor="name">Home Name</label>
                     <input
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder="Example: Spear Primary Residence"
                         value={home.name}
                         onChange={
                             (event) => {
@@ -76,11 +117,10 @@ export const HomeForm = () => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="address">Address:</label>
+                    <label htmlFor="address">Address</label>
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Example: 2234 Ellie Rapid Spinkastad, KY 19400"
                         value={home.address}
                         onChange={
                             (event) => {
@@ -93,11 +133,10 @@ export const HomeForm = () => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="yearBuilt">Year Built:</label>
+                    <label htmlFor="yearBuilt">Year Built</label>
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Example: 2002"
                         value={home.yearBuilt}
                         onChange={
                             (event) => {
@@ -108,9 +147,11 @@ export const HomeForm = () => {
                         } />
                 </div>
             </fieldset>
+            </div>
+            <div>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="construction">Construction:</label>
+                    <label htmlFor="construction">Construction</label>
                     <input
                         type="text"
                         className="form-control"
@@ -127,7 +168,7 @@ export const HomeForm = () => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="roofType">Roof Type:</label>
+                    <label htmlFor="roofType">Roof Type</label>
                     <input
                         type="text"
                         className="form-control"
@@ -143,27 +184,27 @@ export const HomeForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="photo">Home Photo:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter the image URL"
-                        value={home.photo}
-                        onChange={
-                            (event) => {
-                                const copy = {...home}
-                                copy.photo = event.target.value
-                                updateHome(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <button onClick={
-                (clickEvent) => handleSaveButtonClick(clickEvent)
-            } className="btn btn-primary">
-                Save Home
-            </button>
+                    <div className="form-group">
+                        <label htmlFor="Image">Add an Image (Optional)</label>
+                        <input 
+                            className="form-image"
+                            id="Image"
+                            type="file" 
+                            onChange={ (event) => {
+                                setImage(event.target.files[0])
+                                }}
+                            />
+                    </div>
+                </fieldset>
+            </div>
+            </section>
+             <div className="btn-container">
+                <button 
+                    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                    className="btn-create_task">
+                    Save Home
+                </button>
+            </div>
         </form>
     </>
 }

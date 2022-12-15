@@ -1,62 +1,121 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import "./home.css"
+import Axios from 'axios'
+import { useNavigate, useParams } from "react-router-dom"
 
-export const EditHome = ({ homeObj, setToggle }) => {
-    
+export const EditHome = () => {
+    const {homeId} = useParams()
     const [home, updateHome] = useState({
-        id: homeObj.id,
-        homeownerId: homeObj.homeownerId,
-        name: homeObj.name,
-        address: homeObj.address,
-        yearBuilt: homeObj.yearBuilt,
-        construction: homeObj.construction,
-        roofType: homeObj.roofType,
-        photo: homeObj.photo
+        id: 0,
+        homeownerId: 0,
+        name: "",
+        address: "",
+        yearBuilt: 0,
+        construction: "",
+        roofType: "",
+        image: ""
     })
+    const [image, setImage] = useState("")
+
+    const navigate = useNavigate()
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/homes/${homeId}`)
+                .then(res => res.json())
+                .then((homeObj) => {
+                    updateHome(homeObj)
+                })
+        },
+        []
+    )
 
     //Save home object with homeowner ID and post home object to database when button is clicked
     const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-        console.log("Your edits to your home have been saved to your profile")
 
-        //Create the object to be saved to the API
-        const saveDataToAPI = {
-            homeownerId: home.homeownerId,
-            name: home.name,
-            address: home.address,
-            yearBuilt: home.yearBuilt,
-            construction: home.construction,
-            roofType: home.roofType,
-            photo: home.photo
+        if (image) {
+            event.preventDefault()
+            console.log("Your edits to your home have been saved to your profile")
+    
+            //Upload the image to Cloudinary platform
+            //Followed tutorial: https://www.youtube.com/watch?v=Y-VgaRwWS3o
+            const formData = new FormData()
+            //Constructing the form data - add the imported file and upload preset
+            formData.append("file", image)
+            formData.append("upload_preset", "househub")
+
+            //Use Axios API to post photo to Cloudinary platform
+            Axios.post("https://api.cloudinary.com/v1_1/decu5fbul/image/upload", formData)
+                .then( response => {
+                    //Create the object to be saved to the API
+                    const saveDataToAPI = {
+                        homeownerId: home.homeownerId,
+                        name: home.name,
+                        address: home.address,
+                        yearBuilt: home.yearBuilt,
+                        construction: home.construction,
+                        roofType: home.roofType,
+                        image: response.data.url
+                    }
+            
+                    //Perform the fetch() to PUT the object to the API
+                    return fetch(`http://localhost:8088/homes/${homeId}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(saveDataToAPI)
+                    })
+                        .then(res => res.json())
+                        .then(
+                            () => {
+                                navigate("/your-home")
+                            }
+                        )
+            })
         }
+            event.preventDefault()
+            console.log("Your edits to your home have been saved to your profile")
 
-        //Perform the fetch() to PUT the object to the API
-        return fetch(`http://localhost:8088/homes/${home.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(saveDataToAPI)
-        })
-            .then(res => res.json())
-            .then(
-                () => {
-                    setToggle(false)
-                }
-            )
+            //Create the object to be saved to the API
+            const saveDataToAPI = {
+                homeownerId: home.homeownerId,
+                name: home.name,
+                address: home.address,
+                yearBuilt: home.yearBuilt,
+                construction: home.construction,
+                roofType: home.roofType,
+                image: home.image
+            }
+
+            //Perform the fetch() to PUT the object to the API
+            return fetch(`http://localhost:8088/homes/${homeId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(saveDataToAPI)
+            })
+                .then(res => res.json())
+                .then(
+                    () => {
+                        navigate("/your-home")
+                    })
     }
 
     //Form to collect information for new home entry
     return <>
         <form className="homeForm">
-            <h2 className="homeForm__title">Add Your Home</h2>
+            <h2 className="homeForm__title">Edit Home</h2>
+            <section className="taskForm_groups"> 
+            <div>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="name">Home Name:</label>
+                    <label htmlFor="name">Home Name</label>
                     <input
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder="Example: Spear Primary Residence"
                         value={home.name}
                         onChange={
                             (event) => {
@@ -69,11 +128,10 @@ export const EditHome = ({ homeObj, setToggle }) => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="address">Address:</label>
+                    <label htmlFor="address">Address</label>
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Example: 2234 Ellie Rapid Spinkastad, KY 19400"
                         value={home.address}
                         onChange={
                             (event) => {
@@ -86,11 +144,10 @@ export const EditHome = ({ homeObj, setToggle }) => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="yearBuilt">Year Built:</label>
+                    <label htmlFor="yearBuilt">Year Built</label>
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Example: 2002"
                         value={home.yearBuilt}
                         onChange={
                             (event) => {
@@ -101,62 +158,64 @@ export const EditHome = ({ homeObj, setToggle }) => {
                         } />
                 </div>
             </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="construction">Construction:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Example: Masonry Veneer"
-                        value={home.construction}
-                        onChange={
-                            (event) => {
-                                const copy = {...home}
-                                copy.construction = event.target.value
-                                updateHome(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="roofType">Roof Type:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Example: Stamped Metal Shingles"
-                        value={home.roofType}
-                        onChange={
-                            (event) => {
-                                const copy = {...home}
-                                copy.roofType = event.target.value
-                                updateHome(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="photo">Home Photo:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter the image URL"
-                        value={home.photo}
-                        onChange={
-                            (event) => {
-                                const copy = {...home}
-                                copy.photo = event.target.value
-                                updateHome(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <button onClick={
-                (clickEvent) => handleSaveButtonClick(clickEvent)
-            } className="btn btn-primary">
-                Save Home
-            </button>
+            </div>
+            <div>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="construction">Construction</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Example: Masonry Veneer"
+                            value={home.construction}
+                            onChange={
+                                (event) => {
+                                    const copy = {...home}
+                                    copy.construction = event.target.value
+                                    updateHome(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="roofType">Roof Type</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Example: Stamped Metal Shingles"
+                            value={home.roofType}
+                            onChange={
+                                (event) => {
+                                    const copy = {...home}
+                                    copy.roofType = event.target.value
+                                    updateHome(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="Image">Add an Image (Optional)</label>
+                        <input 
+                            className="form-image"
+                            id="Image"
+                            type="file" 
+                            onChange={ (event) => {
+                                setImage(event.target.files[0])
+                                }}
+                            />
+                    </div>
+                </fieldset>
+            </div>
+            </section>
+            <div className="btn-container">
+                <button 
+                    onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                    className="btn-create_task">
+                    Save Edits
+                </button>
+            </div>
         </form>
     </>
 }
