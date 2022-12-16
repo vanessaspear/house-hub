@@ -75,35 +75,39 @@ export const EditContractor = () => {
                             }
                         )
                     })
-        } 
+        } else {
+            event.preventDefault()
+            console.log("Your contractor edit has been saved")
 
-        //Create the object to be saved to the API
-        const saveDataToAPI = {
-            primaryContact: contractor.primaryContact,
-            company: contractor.company,
-            homeownerId: contractor.homeownerId,
-            phone: contractor.phone,
-            email: contractor.email,
-            specialty: contractor.specialty,
-            id: contractor.id,
-            image: contractor.image,
-            status: contractor.status
-        }
+            //Create the object to be saved to the API
+            const saveDataToAPI = {
+                primaryContact: contractor.primaryContact,
+                company: contractor.company,
+                homeownerId: contractor.homeownerId,
+                phone: contractor.phone,
+                email: contractor.email,
+                specialty: contractor.specialty,
+                id: contractor.id,
+                image: contractor.image,
+                status: contractor.status
+            }
 
-        //Perform the fetch() to PUT the object to the API
-        return fetch(`http://localhost:8088/contractors/${contractorId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(saveDataToAPI)
-        })
-            .then(res => res.json())
-            .then(
-                () => {
-                    navigate("/contractors")
-                }
-            )
+            //Perform the fetch() to PUT the object to the API
+            return fetch(`http://localhost:8088/contractors/${contractorId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(saveDataToAPI)
+            })
+                .then(res => res.json())
+                .then(
+                    () => {
+                        navigate("/contractors")
+                    }
+                )
+
+            } 
     }
 
     //Form to collect information for updates to contractor info

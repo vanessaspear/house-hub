@@ -2,7 +2,7 @@
     border: 1px solid rgb(212, 212, 212);
     border-radius: 10px;
     margin-bottom: 10px;
-    width: 63rem;
+    width: 65rem;
 }
 
 .task {
@@ -32,6 +32,7 @@
 
 .task-item_description {
     margin-bottom: 0.8rem;
+    width: 20rem;
 }
 
 .task-item_link {
@@ -102,6 +103,10 @@
     border-radius: 0.5rem;
     font-weight: 700;
     text-align: center;
+}
+
+.btn-create:hover {
+    transform: scale(1.05)
 }
 
 .tasks-elements {

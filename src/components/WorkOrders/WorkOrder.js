@@ -62,8 +62,22 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
                                         doRefresh(!refresh)
                                     })
                             }}>
-                                Delete
-                            </div>
+                                Delete</div>|
+                            <div className="workOrder-option_item" onClick={() => {
+                            const copy = {...openWorkOrder}
+                            copy.status = "Archived"
+                            updateWorkOrder(copy)
+                            fetch(`http://localhost:8088/workOrders/${workOrder.id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(openWorkOrder)
+                            })
+                                .then(() => {
+                                    doRefresh(!refresh)
+                                })
+                            }}>Archive</div>
                         </div>
                     </div>
                     <div className="workOrder-metrics">
