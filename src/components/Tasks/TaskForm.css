@@ -34,6 +34,10 @@
     margin-top: 1rem;
 }
 
+.btn-create_task:hover {
+    transform: scale(1.05)
+}
+
 .btn-container {
     display: flex;
     justify-content: flex-end;

@@ -13,7 +13,7 @@ export const TaskContainer = () => {
             <h2>My Tasks</h2>
 
             <div className="tasks-elements">
-                <button className="btn-create" onClick={() => navigate("/task/create")}>Create Task</button>
+                <button className="btn-create btn-create:hover" onClick={() => navigate("/task/create")}>Create Task</button>
                 <TaskSearch setterFunction={updateSearch} />
             </div>
             

@@ -2,7 +2,7 @@
     border: 1px solid rgb(212, 212, 212);
     border-radius: 10px;
     margin-bottom: 10px;
-    width: 63rem;
+    width: 65rem;
 }
 
 .workOrder {
@@ -32,6 +32,7 @@
 
 .workOrder-item_description, .workOrder-item_summary {
     margin-bottom: 0.8rem;
+    width: 20rem;
 }
 
 .workOrder-item_link {
@@ -113,3 +114,5 @@
     border-radius: 0.5rem;
     font-weight: 700;
 }
+
+

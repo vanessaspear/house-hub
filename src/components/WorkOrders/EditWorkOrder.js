@@ -50,6 +50,8 @@ export const EditWorkOrder = () => {
     //Save work order object and post it to database when button is clicked
     const handleSaveButtonClick = (event) => {
         if (image) {
+            event.preventDefault()
+            console.log("Your work order edit has been saved")
             //Upload the image to Cloudinary platform
             //Followed tutorial: https://www.youtube.com/watch?v=Y-VgaRwWS3o
             const formData = new FormData()
@@ -128,7 +130,7 @@ export const EditWorkOrder = () => {
     }
 
     //Form to collect information for updates to work order info
-    return (<>
+    return <>
         <form className="workOrderForm">
             <h2 className="workOrderForm__title">Edit Work Order</h2>
             <section className="taskForm_groups"> 
@@ -188,20 +190,20 @@ export const EditWorkOrder = () => {
                         </div>
                     </fieldset>
                     <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="summary">Work Notes</label>
-                            <input
-                                required autoFocus
-                                type="text"
-                                className="form-control_description"
-                                value={workOrder.summary}
-                                onChange={ (event) => {
-                                    const copy = {...workOrder}
-                                    copy.summary = event.target.value
-                                    update(copy)
-                                }} />
-                        </div>
-                    </fieldset>
+                    <div className="form-group">
+                        <label htmlFor="summary">Work Notes</label>
+                        <textarea
+                            required 
+                            type="text"
+                            className="form-control_description"
+                            value={workOrder.summary}
+                            onChange={ (event) => {
+                                const copy = {...workOrder}
+                                copy.summary = event.target.value
+                                update(copy)
+                            }} />
+                    </div>
+                </fieldset>
                 </div>
                 <div>
                     <fieldset>
@@ -260,5 +262,5 @@ export const EditWorkOrder = () => {
                 </button>
             </div>
         </form>
-    </>)
+    </>
 }
