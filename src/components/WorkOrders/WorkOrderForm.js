@@ -78,8 +78,8 @@ export const WorkOrderForm = () => {
                 contractorId: workOrder.contractorId,
                 startDate: workOrder.startDate,
                 startTime: new Date(workOrder.startDate).toLocaleTimeString('en-us'),
-                completionDate: workOrder.completionDate,
-                completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
+                completionDate: "",
+                completionTime: "",
                 homeownerId: homeownerObj.id,
                 summary: workOrder.summary,
                 image: response.data.url,
@@ -111,8 +111,8 @@ export const WorkOrderForm = () => {
             contractorId: workOrder.contractorId,
             startDate: workOrder.startDate,
             startTime: new Date(workOrder.startDate).toLocaleTimeString('en-us'),
-            completionDate: workOrder.completionDate,
-            completionTime: new Date(workOrder.completionDate).toLocaleTimeString('en-us'),
+            completionDate: "",
+            completionTime: "",
             homeownerId: homeownerObj.id,
             summary: workOrder.summary,
             image: "",
@@ -222,21 +222,6 @@ export const WorkOrderForm = () => {
                             onChange={ (event) => {
                                 const copy = {...workOrder}
                                 copy.startDate = event.target.value
-                                update(copy)
-                            }} />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="completionDate">Completion Date</label>
-                        <input
-                            type="datetime-local"
-                            className="form-control"
-                            placeholder="Work completion date"
-                            value={workOrder.completionDate}
-                            onChange={ (event) => {
-                                const copy = {...workOrder}
-                                copy.completionDate = event.target.value
                                 update(copy)
                             }} />
                     </div>
