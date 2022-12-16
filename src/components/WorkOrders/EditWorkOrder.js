@@ -230,6 +230,9 @@ export const EditWorkOrder = () => {
                                 onChange={ (event) => {
                                     const copy = {...workOrder}
                                     copy.completionDate = event.target.value
+                                    if (copy.completionDate) {
+                                        copy.status = "Closed"
+                                    }
                                     update(copy)
                                 }} />
                         </div>

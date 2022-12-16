@@ -1,3 +1,4 @@
+import { toHaveErrorMessage } from "@testing-library/jest-dom/dist/matchers"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import "./home.css"
@@ -39,42 +40,43 @@ export const YourHome = () => {
                 <h2 className="details-header">Interior details</h2>
                 <h3>Interior features</h3>
                 <ul>
-                    <li>Flooring: {}</li>
-                    <li>Heating: {}</li>
-                    <li>Cooling: {}</li>
+                    <li>Flooring: {home.flooring}</li>
+                    <li>Heating: {home.heating}</li>
+                    <li>Cooling: {home.cooling}</li>
+                    <li>Total Livable Area: {home.livableArea}</li>
                 </ul>
             </section>
             <section className="home_details">
                 <h2 className="details-header">Construction details</h2>
                 <h3>Material Information</h3>
                 <ul>
-                    <li>Construction materials: {}</li>
-                    <li>Roof: {home.roofType}</li>
+                    <li>Construction materials: {home.construction}</li>
+                    <li>Roof: {home.roof}</li>
                 </ul>
             </section>
             <section className="home_details">
                 <h2 className="details-header">Property details</h2>
                 <h3>Lot</h3>
                 <ul>
-                    <li>Lot size: {}</li>
-                    <li>Lot features: {}</li>
+                    <li>Lot size: {home.lotSize}</li>
+                    <li>Lot features: {home.lotFeatures}</li>
                 </ul>
                 <h3>Property</h3>
                 <ul>
-                    <li>Exterior features: {}</li>
-                    <li>Patio and porch details: {}</li>
+                    <li>Exterior features: {home.exteriorFeatures}</li>
+                    <li>Patio and porch details: {home.patioDetails}</li>
                 </ul>
             </section>
             <section className="home_details">
                 <h2 className="details-header">Utility details</h2>
                 <h3>Utility</h3>
                 <ul>
-                    <li>Sewer information: {}</li>
-                    <li>Utilities for property: {}</li>
+                    <li>Sewer: {home.sewer}</li>
+                    <li>Water: {home.water}</li>
                 </ul>
                 <h3>Green Energy</h3>
                 <ul>
-                    <li>Energy efficient items: {}</li>
+                    <li>Energy efficient items: {home.greenEnergy}</li>
                 </ul>
             </section>
         </main>

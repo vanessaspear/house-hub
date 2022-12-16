@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 
 export const Contractor = ({ contractor, doRefresh, refresh }) => {
 
-    // const [workOrder, setWorkOrder] = useState([])
     const [currentContractor, setContractor] = useState([])
 
     useEffect(
@@ -17,18 +16,6 @@ export const Contractor = ({ contractor, doRefresh, refresh }) => {
         []
    )
 
-    // useEffect(
-    //     () => {
-    //         fetch(`http://localhost:8088/workOrders?_expand=contractor&contractorId=${contractor.id}`)
-    //             .then(res => res.json())
-    //             .then((workOrderArray) => {
-    //                 const workOrderObj = workOrderArray[0]
-    //                 setWorkOrder(workOrderObj)
-    //             })
-    //     },
-    //     []
-    // )
-
     const getDefaultImage = () => {
         if (contractor.specialty === "Electrical") {
             return <img className="contractor-image" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670689180/HouseHub/Images/zoe-schaeffer-VW6gnHHZIjg-unsplash_lkoo34.jpg" />
@@ -41,6 +28,8 @@ export const Contractor = ({ contractor, doRefresh, refresh }) => {
         }  else if(contractor.specialty === "Pools") {
             return <img className="contractor-image" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670689180/HouseHub/Images/zoe-schaeffer-VW6gnHHZIjg-unsplash_lkoo34.jpg" />
         }  else if(contractor.specialty === "General Contracting") {
+            return <img className="contractor-image" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670689180/HouseHub/Images/zoe-schaeffer-VW6gnHHZIjg-unsplash_lkoo34.jpg" />
+        } else {
             return <img className="contractor-image" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670689180/HouseHub/Images/zoe-schaeffer-VW6gnHHZIjg-unsplash_lkoo34.jpg" />
         }
     }

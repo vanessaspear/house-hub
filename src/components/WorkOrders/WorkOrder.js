@@ -41,7 +41,7 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
         <section className="workOrder-container" key={`workOrder--${workOrder.id}`}>
             <section className="workOrder">
                 {
-                    workOrder.status === "Open" ? <>
+                    !(workOrder.status === "Archived") ? <>
 
                     <div>
                         {
@@ -63,22 +63,7 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
                                     })
                             }}>
                                 Delete
-                            </div>|
-                            <div className="workOrder-option_item" onClick={() => {
-                            const copy = {...openWorkOrder}
-                            copy.status = "Closed"
-                            updateWorkOrder(copy)
-                            fetch(`http://localhost:8088/workOrders/${workOrder.id}`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify(openWorkOrder)
-                            })
-                                .then(() => {
-                                    doRefresh(!refresh)
-                                })
-                            }}>Close</div>
+                            </div>
                         </div>
                     </div>
                     <div className="workOrder-metrics">

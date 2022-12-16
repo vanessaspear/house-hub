@@ -1,23 +1,10 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import "./Tasks.css"
+import { WorkOrderStatus } from "../WorkOrders/WorkOrderStatus"
 
 export const Task = ({ task, doRefresh, refresh }) => {
-
-    const [workOrder, setWorkOrder] = useState([])
     const [currentTask, setTask] = useState([])
-
-    useEffect(
-        () => {
-            fetch(`http://localhost:8088/workOrders?_expand=task&taskId=${task.id}`)
-                .then(res => res.json())
-                .then((workOrderArray) => {
-                    const workOrderObj = workOrderArray[0]
-                    setWorkOrder(workOrderObj)
-                })
-        },
-        []
-    )
 
    useEffect(
         () => {
@@ -109,7 +96,7 @@ export const Task = ({ task, doRefresh, refresh }) => {
             </div>
             </>
         }
-    }
+        }
 
     return <>
         <section className="task-container" key={`task--${task.id}`}>
@@ -156,12 +143,8 @@ export const Task = ({ task, doRefresh, refresh }) => {
                 <div className="task-metrics">
                     {getCategoryIcon()}
                     {getFrequencyIcon()}
-                    {
-                        workOrder ? <div>This task is in-process on <Link className="task-item_link" to={`/workOrders`}>Work Order #{workOrder.id}</Link></div>
-                            : <Link className="task-item_link" to={`/workOrder/${task.id}/create`}>Create Work Order</Link>
-                    }
+                    <WorkOrderStatus task={task} />
                 </div>
-                
                 </> 
                     : ""
             }
