@@ -63,36 +63,36 @@ export const ContractorForm = () => {
                             navigate("/contractors")
                         })
                     })
-        } 
+        } else {
+            event.preventDefault()
+            console.log("Your contractor has been added")
 
-        event.preventDefault()
-        console.log("Your contractor has been added")
+            //Create the object to be saved to the API
+            const contractorToSaveToAPI = {
+                primaryContact: contractor.primaryContact,
+                company: contractor.company,
+                homeownerId: homeownerObj.id,
+                phone: contractor.phone,
+                email: contractor.email,
+                specialty: contractor.specialty,
+                image: "",
+                status: "Active"
+            }
 
-        //Create the object to be saved to the API
-        const contractorToSaveToAPI = {
-            primaryContact: contractor.primaryContact,
-            company: contractor.company,
-            homeownerId: homeownerObj.id,
-            phone: contractor.phone,
-            email: contractor.email,
-            specialty: contractor.specialty,
-            image: "",
-            status: "Active"
-        }
-
-        //Perform the fetch() to POST the new contractor object to the API
-        fetch(`http://localhost:8088/contractors`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(contractorToSaveToAPI)
-        })
-            .then(res => res.json())
-            .then(() => {
-                //Return user to contractors list
-                navigate("/contractors")
+            //Perform the fetch() to POST the new contractor object to the API
+            fetch(`http://localhost:8088/contractors`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(contractorToSaveToAPI)
             })
+                .then(res => res.json())
+                .then(() => {
+                    //Return user to contractors list
+                    navigate("/contractors")
+                })
+        }
     }
 
         // const formatNumber = (userEntry) => {

@@ -30,7 +30,6 @@ export const WorkOrderForm = () => {
                 .then((taskArray) => {
                     const taskObj = taskArray[0]
                     setTask(taskObj)
-                    console.log(task)
                 })
         },
         [taskId]
@@ -185,7 +184,7 @@ export const WorkOrderForm = () => {
                                 update(copy)
                             }}
                             >
-                            <option value={0}>Homeowner (No contractor required)</option>
+                            <option value={0}>Select a contractor</option>
                             {
                                 contractors.map(contractor => {
                                     return <option value={contractor.id} key={`contractor--${contractor.id}`}>{contractor.company} (Specialty: {contractor.specialty})</option>
