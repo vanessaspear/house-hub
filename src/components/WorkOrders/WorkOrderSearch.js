@@ -1,3 +1,5 @@
+//Update the work order search term as it changes using the setter function passed from WorkOrderContainer parent component
+
 export const WorkOrderSearch = ({ setterFunction }) => {
     return (
         <div>

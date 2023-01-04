@@ -1,3 +1,5 @@
+//Update the task search term as it changes using the setter function passed from TaskContainer parent component
+
 export const TaskSearch = ({ setterFunction }) => {
     return (
         <div>

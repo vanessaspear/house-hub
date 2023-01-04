@@ -1,3 +1,5 @@
+//Update the contractor search term as it changes using the setter function passed from ContractorContainer parent component
+
 export const ContractorSearch = ({ setterFunction }) => {
     return (
         <div>

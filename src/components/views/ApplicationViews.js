@@ -1,3 +1,5 @@
+//Routes to the various web page views in the app
+
 import { Outlet, Route, Routes } from "react-router-dom"
 import { HomeForm } from "../Home/HomeForm"
 import { YourHome } from "../Home/YourHome"
@@ -10,7 +12,6 @@ import { EditContractor } from "../Contractors/EditContractor"
 import { WorkOrderContainer } from "../WorkOrders/WorkOrderContainer"
 import { WorkOrderForm } from "../WorkOrders/WorkOrderForm"
 import { EditWorkOrder } from "../WorkOrders/EditWorkOrder"
-import { Footer } from "../Footer/Footer"
 import { EditHome } from "../Home/EditHome"
 
 export const ApplicationViews = () => {

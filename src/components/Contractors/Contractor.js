@@ -1,3 +1,6 @@
+//Component to create an individual profile card for each contractor 
+//Contractors are passed one-by-one as a prop from ContractorList component
+
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -15,7 +18,8 @@ export const Contractor = ({ contractor, doRefresh, refresh }) => {
         },
         []
    )
-
+    
+   //If an image isn't uploaded by the user for a contractor, assign a default image based on the contractor's specialty
     const getDefaultImage = () => {
         if (contractor.specialty === "Electrical") {
             return <img className="contractor-image" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670689180/HouseHub/Images/zoe-schaeffer-VW6gnHHZIjg-unsplash_lkoo34.jpg" />
@@ -34,6 +38,7 @@ export const Contractor = ({ contractor, doRefresh, refresh }) => {
         }
     }
 
+    //If the contractor has an active status, display their profile
     return <>
         <section className="contractor-container" key={contractor.id}>
             <section className="contractor">
@@ -88,10 +93,6 @@ export const Contractor = ({ contractor, doRefresh, refresh }) => {
                                     <img className="icon-category" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670962010/HouseHub/Resources/Screenshot_2022-12-13_at_2.03.51_PM_rqinnx.png" />
                                     <div className="contractor-metrics_item"> {contractor.email}</div>
                                 </div>
-                                {/* {
-                                    workOrder ? <div>This contractor is working on<Link className="contractor-item_link" to={`/workOrders`}>Work Order #{workOrder.id}</Link></div>
-                                        : <div>This contractor is not currently working on any work orders</div>
-                                } */}
                             </div>
                     </>
                         : ""

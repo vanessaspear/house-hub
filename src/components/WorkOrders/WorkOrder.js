@@ -1,3 +1,6 @@
+//Component to create an individual profile card for each work order 
+//Work orders are passed one-by-one as a prop from WorkOrderList component
+
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -15,7 +18,7 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
         []
     )
 
-    //Date format in database: "startDate": "2022-09-12T09:00"
+    //Format the date stored in the database to mm/dd/yyyy
     const startDateFormat = () => {
             let displayStartDate = workOrder.startDate.split("T")
             displayStartDate = displayStartDate[0].split("-")
@@ -24,6 +27,7 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
             return displayStartDate
     }
 
+    //Format the date stored in the database to mm/dd/yyyy
     const completionDateFormat = () => {
         let displayCompletionDate = workOrder.completionDate.split("T")
         displayCompletionDate = displayCompletionDate[0].split("-")
@@ -32,6 +36,7 @@ export const WorkOrder = ({ workOrder, doRefresh, refresh }) => {
         return displayCompletionDate
     }
 
+    //If the user didn't upload the image, display a generic default image
     const getDefaultImage = () => {
         return <img className="task-image" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670689181/HouseHub/Images/cesar-carlevarino-aragon-NL_DF0Klepc-unsplash_wqjjaq.jpg" />
     }

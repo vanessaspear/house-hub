@@ -1,8 +1,9 @@
-import { toHaveErrorMessage } from "@testing-library/jest-dom/dist/matchers"
+//Main landing page when a user logs into their account 
+//Display all home information collected during user registration
+
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import "./home.css"
-//Model after a Zillow Facts and features section
 
 export const YourHome = () => {
 

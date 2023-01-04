@@ -1,3 +1,5 @@
+//Parent page to display all work order components and manage search function
+
 import { useState } from "react"
 import { WorkOrderList } from "./WorkOrderList"
 import { WorkOrderSearch } from "./WorkOrderSearch"

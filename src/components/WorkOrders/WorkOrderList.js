@@ -1,5 +1,8 @@
+//Use fetch call and filtering to get the list of work orders for the logged-in user
+//Use the searchTerm prop to filter work order list as needed
+//Pass each work order as a prop to the WorkOrder component to build out individual contractor items
+
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import { WorkOrder } from "./WorkOrder"
 import "./WorkOrder.css"
 
@@ -20,8 +23,6 @@ export const WorkOrderList = ({ searchTerm }) => {
         },
         []
     )
-
-    const navigate = useNavigate()
 
     //Find the homownerId of the user currently logged-in
     const localUser = localStorage.getItem("homeowner")

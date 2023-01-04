@@ -1,3 +1,7 @@
+//Use fetch call and filtering to get the list of contractors for the logged-in user
+//Use the searchTerm prop to filter contractor list as needed
+//Pass each contractor as a prop to the Contractor component to build out individual contractor items
+
 import { useState, useEffect } from "react"
 import { Contractor } from "./Contractor"
 import "./Contractors.css"

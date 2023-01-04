@@ -1,3 +1,5 @@
+//Parent page to display all task-related components and manage search function
+
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { TaskList } from "../Tasks/TaskList"

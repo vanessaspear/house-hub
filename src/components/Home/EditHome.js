@@ -1,3 +1,7 @@
+//Get the homeId from the url parameter and deconstruct with useParams() function
+//Use fetch call to get the home profile
+//Display a form with the existing home content to be edited
+
 import { useState, useEffect } from "react"
 import "./home.css"
 import Axios from 'axios'

@@ -1,3 +1,6 @@
+//Form used to collect user's home information when they register for an account 
+//Home info is then displayed on landing page after login
+
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Axios from 'axios'

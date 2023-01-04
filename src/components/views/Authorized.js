@@ -1,3 +1,5 @@
+//Checks user authentication and routes back to login page if not a user 
+
 import { Navigate, useLocation } from "react-router-dom"
 
 export const Authorized = ({ children }) => {

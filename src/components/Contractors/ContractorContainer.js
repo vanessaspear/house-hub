@@ -1,3 +1,5 @@
+//Parent page to display all contractor components and manage search function
+
 import { useState } from "react"
 import { ContractorList } from "./ContractorList"
 import { ContractorSearch } from "./ContractorSearch"

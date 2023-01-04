@@ -1,3 +1,6 @@
+//Landing page for existing and new users to login into website
+//Saves the logged-in user to local storage
+
 import React, { useState } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"

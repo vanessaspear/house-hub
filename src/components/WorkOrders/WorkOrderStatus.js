@@ -1,18 +1,21 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+//Determine the status of a work order: Complete, in-process, or not created
+//Change work order item display based on work order status
 
 /* Algorithmic thinking: 
 
 1. get work order array from database that is associated with the current task ID 
 2. iterate through the entire array (could just be one object)
 3. Determine if each work order is open or closed 
-4. If the work order is oopen display 
+4. If the work order is open display 
     <div>This task is in-process on <Link className="task-item_link" to={`/workOrders`}>Work Order #{workOrder.id}</Link></div>
 5. If the work order is closed, display when the most recent work order was completed 
 6. If a work order doesn't exist or there are no open work orders, display: 
     <Link className="task-item_link" to={`/workOrder/${task.id}/create`}>Create Work Order</Link>
 
 */
+
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 export const WorkOrderStatus = ({ task }) => {
     const [workOrders, setWorkOrders] = useState([])

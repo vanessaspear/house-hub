@@ -1,3 +1,7 @@
+//Use fetch call and filtering to get the list of tasks for the logged-in user
+//Use the searchTerm prop to filter task list as needed
+//Pass each task as a prop to the Task component to build out individual task item display blocks
+
 import { useState, useEffect } from "react"
 import { Task } from "./Task"
 import "./Tasks.css"

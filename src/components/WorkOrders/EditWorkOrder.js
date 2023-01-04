@@ -1,3 +1,7 @@
+//Get the work order ID that was passed as a string parameter 
+//Use a fetch call to get the work order's info from the database
+//Display the work orders info and edit content using a form
+
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import Axios from 'axios'

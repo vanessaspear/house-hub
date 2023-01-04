@@ -1,3 +1,6 @@
+//Display form to add new work order to work order list
+//Used Axios library and Cloudinary API to upload images to database
+
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom"

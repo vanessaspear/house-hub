@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react"
+//Display form to add new contractor to contractor address book
+//Used Axios library and Cloudinary API to upload images to database
+
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Axios from 'axios'
 
@@ -94,23 +97,6 @@ export const ContractorForm = () => {
                 })
         }
     }
-
-        // const formatNumber = (userEntry) => {
-        //     if (userEntry.length < 4) {
-        //         return userEntry
-        //     }
-        //     if (userEntry.length < 7) {
-        //         return `(${userEntry.substring(0,3)}) ${userEntry.substring(3, 7)}`
-        //     }
-        //     return `(${userEntry.substring(0,3)}) ${userEntry.substring(3, 7)}-${userEntry.substring(7,10)}`
-        // }
-
-        // const displayPhoneNumber = (event) => {
-        //     const formattedNumber = formatNumber(event.target.value)
-        //     const copy = {...contractor}
-        //     copy.phone = formattedNumber
-        //     update(copy)
-        // }
 
     return <>
         <form className="taskForm">

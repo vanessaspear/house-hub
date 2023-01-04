@@ -1,3 +1,6 @@
+//Component to create an individual profile card for each homeowner's task list 
+//Tasks are passed one-by-one as a prop from TaskList component
+
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import "./Tasks.css"

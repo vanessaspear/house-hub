@@ -1,8 +1,10 @@
+//Creates new user 
+//Routes new user to "add-home" page to collect home information 
+
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom";
 import "./Login.css"
-import { RiDoubleQuotesL, RiDoubleQuotesR, RiStarFill} from "react-icons/ri";
 
 export const Register = (props) => {
     const [user, setUser] = useState({
@@ -27,7 +29,6 @@ export const Register = (props) => {
                         name: createdUser.fullName,
                         email: createdUser.email
                     }))
-                    //Here I want to navigate to the "Add Home" page
                     navigate("/add-home")
                 }
             })

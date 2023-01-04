@@ -1,3 +1,7 @@
+//Get the task ID that was passed as a string parameter 
+//Use a fetch call to get the task item from the database
+//Display the task's info and edit content using a form
+
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import Axios from 'axios'

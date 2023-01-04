@@ -1,3 +1,6 @@
+//Display form to add new task to homeowner's task list
+//Used Axios library and Cloudinary API to upload images to database
+
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Axios from 'axios'
