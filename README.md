@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# HouseHub is a user-friendly web app that provides homeowners with a simpler way of managing home maintenance, repairs, and upgrades.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Description
 
-## Available Scripts
+For most people, a home is the largest asset they’ll own throughout their lifetime and taking care of maintenance, repairs and upgrades can feel overwhelming or is often overlooked.  HouseHub is meant to eliminate the use of spreadsheets, notepads, filing cabinets, and other less efficient and less accessible resources used to track home maintenance and other projects.  The app gives homeowners the ability to add their home information, add maintenance tasks required, create a list of contractors, and schedule work orders to stay on track of taking care of their home.
 
-In the project directory, you can run:
+HTML, Javascript (React Framework), JSON server and CSS were used to build and style this application.  In the planning stages, I used DBDiagram to create an entity relationship diagram and Miro to create a wireframe.  Both documents helped with my solution design and were referenced throughout my work building out this app.
 
-### `npm start`
+* DBDiagram ERD: https://dbdiagram.io/d/637cf58cc9abfc61117480ed 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Miro wireframe: https://miro.com/app/board/uXjVP_UeasE=/?share_link_id=143430286106
+                      
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Some Cool Features
+* Integration of the Axios library and Cloudinary API to allow a user to upload and display images for a task, contractor, and work order on their profile (followed this tutorial to learn the basics: https://www.youtube.com/watch?v=Y-VgaRwWS3o)
+* Search box that filters through tasks, contractors, and work orders based on the user's search term and live updates the displayed list with matching items
+* Task items have work order statuses that are updated as associated work orders are in-process or completed.  Otherwise, it links the user to the "Create a work order" form
 
-### `npm test`
+## Some Challenges
+* Times & dates are harder to work with then you'd expect, especially formatting time/date and filtering by time/date
+* I didn't realize until the final day of project work that deleting an object that had foreign key dependencies would also delete the dependent objects from the database based on JSON dependency constraints.  Need to address this in the next revision of the application.
+* Rewriting the details of GET/POST/DELETE fetch calls in every use case is extremely tedious and error-prone.  I would definitely create an API manager component with helper functions moving forward.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Planned Features
+* Filters for tasks, contractors, and work orders
+* Additional home detail fields that allow for lower level detail tracking (serial number, manufacturer, color, etc.) 
+*  Auto-formatting of phone numbers 
+*  Quote and invoice upload on work orders 
 
-### `npm run build`
+# How to Install and Run the Project 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Navigate to your workspace directory. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Run the following command in terminal:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+git clone git@github.com:vanessaspear/house-hub.git
+```
 
-### `npm run eject`
+From within the HouseHub directory, run: 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This runs the app in development mode.  Open [http://localhost:3000](http://localhost:3000) to view it in your browser.  The page will reload when you make changes.
+ 
+Navigate back to your workspace directory to download the database.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Run the following command in terminal:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+git clone git@github.com:vanessaspear/house-hub-api.git
+```
 
-## Learn More
+From within the HouseHub-API directory, run: 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+json-server database.json -p 8088 -w
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+You should now see the website's login/register page:
 
-### Code Splitting
+<img width="1310" alt="image" src="https://user-images.githubusercontent.com/112430942/210656272-e3e58abd-e5d7-44e5-a501-12a33de75c99.png">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
