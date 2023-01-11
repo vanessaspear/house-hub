@@ -17,6 +17,8 @@ For most people, a home is the largest asset they’ll own throughout their life
 
 ### Technologies Used
 
+<img alt="Javascript" src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E"><img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img alt="CSS" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img alt="JSON" src="https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white"><img alt="GIT" src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white"><img alt="Github" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"><img alt="Miro" src="https://img.shields.io/badge/Miro-F7C922?style=for-the-badge&logo=Miro&logoColor=050036"><img alt="" src="">
+
 HTML, Javascript (React Framework), JSON server and CSS were used to build and style this application.  In the planning stages, I used DBDiagram to create an entity relationship diagram and Miro to create a wireframe.  Both documents helped with my solution design and were referenced throughout my work building out this app.
 
 * [HouseHub ERD](https://dbdiagram.io/d/637cf58cc9abfc61117480ed)
@@ -62,3 +64,9 @@ You should now be able to login to the application.
 To demo the app, login in with the following email address: **wthorneloe1@usa.gov**
 
 <img width="1310" alt="HouseHub Login Page" src="https://user-images.githubusercontent.com/112430942/210656272-e3e58abd-e5d7-44e5-a501-12a33de75c99.png">
+
+Author
+------
+Created by Vanessa Spear 
+
+[<img alt="Github" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">](https://github.com/vanessaspear)[<img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">](https://www.linkedin.com/in/vanessavspear/)
