@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+HouseHub 
+------
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img width="300" height="300" alt="HouseHub Logo" src="https://res.cloudinary.com/decu5fbul/image/upload/v1670528959/HouseHub/Logos/logo_red_banner_centered_slogan_2022-12-08_at_1.38.13_PM_cmvqgn.png">
 
-## Available Scripts
+### Application Overview
 
-In the project directory, you can run:
+For most people, a home is the largest asset they’ll own throughout their lifetime and taking care of maintenance, repairs and upgrades can feel overwhelming or is often overlooked.  HouseHub is meant to eliminate the use of spreadsheets, notepads, filing cabinets, and other less efficient and less accessible resources used to track home maintenance and other projects.  The app gives homeowners the ability to add their home information, add maintenance tasks required, create a list of contractors, and schedule work orders to stay on track of taking care of their home.
 
-### `npm start`
+This client side application was created as part of a 2 week long Front End Capstone project.  My learning goals were to: 
+  - Demonstrate proficiency with React components including passing props and params
+  - Professionally style page using CSS
+  - Use a cloud storage platform to upload and display images
+  - Be intentional about user experience during design and functionality choices
+  - Try hard things and fail in the name of learning 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Features
+  - Users can store home information including interior details, construction details, exterior details and property details
+  - Users can add tasks (reoccuring items) and specify the category and frequency of work and the details of the work to be performed
+  - Users can create work orders which track a specific instance of a task and manage the start/completion dates, contractor and work notes
+  - Users can build up an address book of contractors and link contractors to work-in-process
+  
+### ADD GIFS HERE
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Technologies Used
 
-### `npm test`
+<img alt="Javascript" src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E"><img alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"><img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img alt="CSS" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img alt="JSON" src="https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white"><img alt="GIT" src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white"><img alt="Github" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"><img alt="Miro" src="https://img.shields.io/badge/Miro-F7C922?style=for-the-badge&logo=Miro&logoColor=050036"><img alt="" src="">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+HTML, Javascript (React Framework), JSON server and CSS were used to build and style this application.  In the planning stages, I used DBDiagram to create an entity relationship diagram and Miro to create a wireframe.  Both documents helped with my solution design and were referenced throughout my work building out this app.
 
-### `npm run build`
+* [HouseHub ERD](https://dbdiagram.io/d/637cf58cc9abfc61117480ed)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* [HouseHub Wireframe](https://miro.com/app/board/uXjVP_UeasE=/?share_link_id=143430286106)
+                
+### Roadmap
+* Filter dropdowns on task, contractor and work order pages
+* Additional home detail fields that allow for lower level detail tracking (i.e. serial number, manufacturer, color, etc.) 
+*  Auto-formatting of phone numbers 
+*  Quote and invoice upload on work orders 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Running the Application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**First, a note about authentication...**
 
-### `npm run eject`
+This application does not use authentication and is for development use only. A proper authentication module would need to be implemented for production use.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Navigate to your workspace directory. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Run the following command in terminal:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+git clone git@github.com:vanessaspear/house-hub.git
+cd house-hub
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This runs the app in development mode.  Open [http://localhost:3000](http://localhost:3000) to view it in your browser. 
+ 
+Navigate back to your workspace directory to download the database.
 
-## Learn More
+Run the following command in terminal:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+git clone git@github.com:vanessaspear/house-hub-api.git
+cd house-hub-api
+json-server database.json -p 8088 -w
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+You should now be able to login to the application. 
 
-### Code Splitting
+To demo the app, login in with the following email address: **wthorneloe1@usa.gov**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<img width="1310" alt="HouseHub Login Page" src="https://user-images.githubusercontent.com/112430942/210656272-e3e58abd-e5d7-44e5-a501-12a33de75c99.png">
 
-### Analyzing the Bundle Size
+Author
+------
+Created by Vanessa Spear 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[<img alt="Github" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">](https://github.com/vanessaspear)[<img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">](https://www.linkedin.com/in/vanessavspear/)
